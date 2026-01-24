@@ -1,3 +1,6 @@
+const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M";
+const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA";
+
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
