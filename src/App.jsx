@@ -66,7 +66,7 @@ const NoticePopup = ({ onClose }) => {
           </button>
         </div>
 
-        <div className="p-4 space-y-4 font-noto break-keep">
+        <div className="p-4 space-y-4 font-noto break-keep text-left">
           <div className="text-center">
             <p className="text-gray-900 font-bold text-[13px] leading-relaxed">
               주일 1,2부 예배시 <br />
@@ -129,7 +129,7 @@ const MainHeroSlider = ({ images }) => {
         <img key={index} src={src} alt={`Slide ${index + 1}`} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${currentSlide === index ? 'opacity-100' : 'opacity-0'}`} onError={(e) => { e.target.style.display = 'none'; }} />
       ))}
       <div className="absolute inset-0 flex items-center justify-center -z-10 text-gray-300 font-bold uppercase tracking-widest text-[10px] font-sans p-10 text-center">IMAGE LOADING</div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10 font-sans">
         {images.map((_, idx) => (
           <div key={idx} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === idx ? 'w-6 bg-indigo-600' : 'bg-gray-300/50'}`} />
         ))}
@@ -160,7 +160,7 @@ const Home = ({ onWorshipClick }) => (
     <section className="py-20 px-6 bg-gray-50 font-noto text-center">
         <button onClick={onWorshipClick} className="group inline-flex flex-col items-center">
           <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-4 font-sans">Service Information</span>
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter">예배 안내 보기</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter font-noto">예배 안내 보기</h2>
           <div className="mt-8 w-14 h-14 md:w-16 md:h-16 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-500">
              <ChevronRight size={28} />
           </div>
@@ -178,21 +178,21 @@ const About = () => (
       </div>
       <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 border border-gray-100 shadow-2xl shadow-indigo-50/50 mb-20 relative overflow-hidden text-left">
         <Quote className="absolute -top-6 -left-6 text-indigo-50/50 w-32 h-32 md:w-48 md:h-48" />
-        <div className="relative z-10">
+        <div className="relative z-10 text-left">
           <div className="space-y-8 md:space-y-12 text-base md:text-2xl text-gray-600 leading-[1.8] md:leading-[2.1] font-medium tracking-normal break-keep">
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start text-left">
               <span className="text-indigo-600 shrink-0 text-xl font-black mt-[6px] md:mt-[10px]">•</span>
               <p>영적인 말씀이 강하게 선포되는 교회</p>
             </div>
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start text-left">
               <span className="text-indigo-600 shrink-0 text-xl font-black mt-[6px] md:mt-[10px]">•</span>
               <p>오직 기도에 힘쓰는 교회</p>
             </div>
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start text-left">
               <span className="text-indigo-600 shrink-0 text-xl font-black mt-[6px] md:mt-[10px]">•</span>
               <p>선교적 사명을 끝날까지 감당하는 교회</p>
             </div>
-            <div className="flex gap-4 items-start">
+            <div className="flex gap-4 items-start text-left">
               <span className="text-indigo-600 shrink-0 text-xl font-black mt-[6px] md:mt-[10px]">•</span>
               <p>복음으로 사랑의 명령을 실천하는 교회</p>
             </div>
@@ -217,7 +217,7 @@ const Worship = () => (
         <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter uppercase font-sans">Worship</h2>
       </div>
       <div className="grid md:grid-cols-2 gap-8 md:gap-10 font-bold">
-        <div className="bg-white p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] border border-gray-100 shadow-xl shadow-indigo-50/30">
+        <div className="bg-white p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] border border-gray-100 shadow-xl shadow-indigo-50/30 text-left">
           <h3 className="text-gray-900 font-black text-xl md:text-2xl mb-10 flex items-center gap-4 uppercase tracking-tighter font-sans font-bold"><Clock className="text-indigo-600" strokeWidth={3}/> Sunday</h3>
           <div className="space-y-10">
             {worshipTimes.filter(t => t.name.includes('주일')).map((item, idx) => (
@@ -228,7 +228,7 @@ const Worship = () => (
             ))}
           </div>
         </div>
-        <div className="bg-gray-900 p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl">
+        <div className="bg-gray-900 p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl text-left">
           <h3 className="text-indigo-400 font-black text-xl md:text-2xl mb-10 flex items-center gap-4 uppercase tracking-tighter font-sans font-bold"><Users strokeWidth={3}/> Weekday</h3>
           <div className="space-y-10">
             {worshipTimes.filter(t => !t.name.includes('주일')).map((item, idx) => (
@@ -250,7 +250,7 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8">
          <div className="text-left font-sans font-bold">
             <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-4 block font-sans font-black">Archive</span>
-            <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase">주일 말씀</h2>
+            <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-noto text-left">주일 말씀</h2>
          </div>
          <a href="https://youtube.com/@centralchurch5467?si=zOJh5JBLDqAlI1fF" target="_blank" rel="noopener noreferrer" className="bg-red-600 text-white px-8 md:px-10 py-4 rounded-full font-black text-[11px] tracking-widest hover:bg-red-700 transition-all uppercase flex items-center gap-3 shadow-xl shadow-red-50 font-sans">
             <Youtube size={20}/> YouTube Channel
@@ -266,24 +266,24 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 font-sans">
             {videos.length > 0 ? (
               videos.map((video, i) => (
-                <div key={i} onClick={() => onVideoSelect(video.id.videoId)} className="group cursor-pointer block">
+                <div key={i} onClick={() => onVideoSelect(video.id.videoId)} className="group cursor-pointer block text-left">
                   <div className="relative aspect-video rounded-[2rem] md:rounded-[3.5rem] overflow-hidden mb-8 shadow-sm group-hover:shadow-2xl transition-all duration-700 border border-gray-100 bg-gray-50">
                      <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/20">
                         <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-2xl text-indigo-600 transform scale-90 group-hover:scale-100 transition-transform"><PlayCircle size={32} /></div>
                      </div>
                   </div>
-                  <h4 className="text-lg md:text-xl font-black text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug font-noto break-keep">
+                  <h4 className="text-lg md:text-xl font-black text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug font-noto break-keep text-left">
                     {video.snippet.title}
                   </h4>
-                  <p className="text-gray-400 text-[11px] font-bold font-sans tracking-widest uppercase">
+                  <p className="text-gray-400 text-[11px] font-bold font-sans tracking-widest uppercase text-left">
                     {new Date(video.snippet.publishedAt).toLocaleDateString('ko-KR')}
                   </p>
                 </div>
               ))
             ) : (
               [1, 2, 3].map(i => (
-                <div key={i} className="group opacity-50">
+                <div key={i} className="group opacity-50 text-left">
                   <div className="aspect-video rounded-[2rem] md:rounded-[3.5rem] bg-gray-100 border border-gray-200 mb-8 flex flex-col items-center justify-center text-gray-400 font-bold uppercase tracking-widest text-[10px] shadow-sm"><Video size={32} className="mb-3 opacity-20" /><span>영상 대기 중</span></div>
                   <div className="h-6 w-3/4 bg-gray-100 mb-4 rounded-full border border-gray-50"></div>
                   <div className="h-4 w-1/4 bg-gray-100 rounded-full border border-gray-50"></div>
@@ -302,23 +302,23 @@ const Contact = () => {
     <section className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto text-left font-sans">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start font-bold">
-          <div className="lg:col-span-5 space-y-10 md:space-y-12">
+          <div className="lg:col-span-5 space-y-10 md:space-y-12 text-left">
             <div>
-              <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-sans font-black">Location</h2>
+              <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-sans font-black text-left">Location</h2>
               <div className="w-12 h-1.5 bg-indigo-600 mt-6 mb-10"></div>
             </div>
-            <div className="space-y-10 md:space-y-12 font-noto break-keep">
-              <div className="flex gap-5 md:gap-6 items-start group">
+            <div className="space-y-10 md:space-y-12 font-noto break-keep text-left">
+              <div className="flex gap-5 md:gap-6 items-start group text-left">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Train size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span></p></div>
+                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span></p></div>
               </div>
-              <div className="flex gap-5 md:gap-6 items-start group">
+              <div className="flex gap-5 md:gap-6 items-start group text-left">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Bus size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span></p></div>
+                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span></p></div>
               </div>
-              <div className="flex gap-5 md:gap-6 items-start group">
+              <div className="flex gap-5 md:gap-6 items-start group text-left">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Car size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
+                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black text-left">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black text-left">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
               </div>
             </div>
           </div>
@@ -327,7 +327,7 @@ const Contact = () => {
               <iframe src="https://maps.google.com/maps?q=서울특별시%20서초구%20방배천로%2040-2&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="Church Map" className="opacity-90 contrast-110"></iframe>
               <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 z-20 bg-white/90 backdrop-blur-xl p-6 md:p-10 rounded-[2rem] md:rounded-[3.5rem] shadow-2xl flex items-center justify-between border border-white/20">
                 <div className="font-sans text-left font-black"><p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-noto">센트럴처치</p><div className="text-[10px] md:text-[11px] text-gray-400 mt-1 font-sans flex flex-col gap-0.5 font-noto font-black"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
-                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors"><ExternalLink size={20}/></a>
+                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors font-sans"><ExternalLink size={20}/></a>
               </div>
             </div>
           </div>
@@ -403,7 +403,8 @@ const App = () => {
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300 font-bold font-sans">
           <div className="flex justify-between items-center p-8 border-b border-gray-50">
-            <img src={images.logo} alt="Logo" className="h-8 object-contain" onError={(e) => e.target.style.display='none'} />
+            {/* 모바일 메뉴 내부 로고 크기 확대 */}
+            <img src={images.logo} alt="Logo" className="h-12 object-contain" onError={(e) => e.target.style.display='none'} />
             <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2"><X size={32} strokeWidth={1.5} /></button>
           </div>
           <div className="flex flex-col p-10 space-y-8 overflow-y-auto">
@@ -424,7 +425,8 @@ const App = () => {
       <nav className={`fixed w-full z-[1000] transition-all duration-500 font-bold ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center font-sans">
           <div className="flex items-center cursor-pointer group font-bold" onClick={() => setActiveTab('home')}>
-            <div className="relative h-10 md:h-14 flex items-center">
+            {/* 메인 네비게이션 로고 크기 대폭 확대 */}
+            <div className="relative h-14 md:h-20 flex items-center">
                <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-bold font-sans" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
                <div className="hidden items-center gap-2 font-bold font-sans uppercase font-bold"><BookOpen size={24} className="text-indigo-600 font-bold font-sans" /><span className="text-xl font-black text-gray-900 tracking-tighter font-noto">Central Church</span></div>
             </div>
@@ -438,54 +440,4 @@ const App = () => {
               { id: 'sermon', label: '다시듣기' }, 
               { id: 'contact', label: '찾아오는 길' }
             ].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group font-bold font-sans ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
-            ))}
-          </div>
-
-          <div className="md:hidden flex items-center font-bold font-sans"><button onClick={() => setIsMenuOpen(true)} className="p-3 -mr-3 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100]"><Menu size={28} strokeWidth={1.5} /></button></div>
-        </div>
-      </nav>
-
-      {renderContent()}
-
-      <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 font-noto text-center font-sans font-bold">
-        <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 mb-16 font-bold">
-          <MapPin className="text-indigo-600 font-bold" size={24} strokeWidth={2} />
-          <div className="flex flex-col gap-2 font-bold">
-            <span className="text-gray-900 font-black text-lg font-noto">서울특별시 서초구 방배천로 40-2</span>
-            <span className="text-[11px] opacity-70 font-bold font-noto">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-bold font-sans font-black"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
-      </footer>
-
-      <style>{`
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-        
-        /* 폰트 및 줄바꿈 최적화 CSS */
-        .font-noto { 
-          font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-          word-break: keep-all; 
-          overflow-wrap: break-word;
-        }
-        
-        .break-keep {
-          word-break: keep-all;
-          overflow-wrap: break-word;
-        }
-
-        body { 
-          font-family: 'Noto Sans KR', sans-serif; 
-          background: #ffffff; 
-          -webkit-tap-highlight-color: transparent;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default App;
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group font-bold font-sans ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin
