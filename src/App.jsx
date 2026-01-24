@@ -1,6 +1,3 @@
-const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M";
-const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA";
-
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
@@ -30,8 +27,8 @@ import {
 } from 'lucide-react';
 
 // --- 전역 설정 (유튜브 API용) ---
-const YOUTUBE_API_KEY = ""; // 발급받은 API 키 입력 시 자동 업데이트 활성
-const YOUTUBE_CHANNEL_ID = "UC_PLACEHOLDER"; // 채널 ID 입력 시 자동 업데이트 활성
+const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M"; // 발급받은 API 키 입력 시 자동 업데이트 활성
+const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA"; // 채널 ID 입력 시 자동 업데이트 활성
 
 // --- 전역 데이터 ---
 const worshipTimes = [
