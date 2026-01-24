@@ -381,10 +381,10 @@ const App = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'home': return <Home onWorshipClick={() => setActiveTab('worship')} />;
-      case '교회소개': return <About />;
-      case '예배시간': return <Worship />;
-      case '다시듣기': return <Sermon />;
-      case '찾아오는길': return <Contact />;
+      case 'about': return <About />;
+      case 'worship': return <Worship />;
+      case 'sermon': return <Sermon />;
+      case 'contact': return <Contact />;
       default: return <Home />;
     }
   };
@@ -407,10 +407,10 @@ const App = () => {
           <div className="flex flex-col p-10 space-y-8 overflow-y-auto">
             {[
               { id: 'home', label: 'Home' }, 
-              { id: 'about', label: 'Church' }, 
-              { id: 'worship', label: 'Worship' }, 
-              { id: 'sermon', label: 'Sermon' }, 
-              { id: 'contact', label: 'Contact' }
+              { id: 'about', label: '교회소개' }, 
+              { id: 'worship', label: '예배시간' }, 
+              { id: 'sermon', label: '다시듣기' }, 
+              { id: 'contact', label: '찾아오는길' }
             ].map((tab) => (
               <button 
                 key={tab.id} 
