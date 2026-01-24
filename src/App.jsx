@@ -381,10 +381,10 @@ const App = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'home': return <Home onWorshipClick={() => setActiveTab('worship')} />;
-      case 'about': return <About />;
-      case 'worship': return <Worship />;
-      case 'sermon': return <Sermon />;
-      case 'contact': return <Contact />;
+      case '교회소개': return <About />;
+      case '예배시간': return <Worship />;
+      case '다시듣기': return <Sermon />;
+      case '찾아오는길': return <Contact />;
       default: return <Home />;
     }
   };
@@ -443,7 +443,7 @@ const App = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-12 font-bold uppercase font-sans">
-            {[{ id: 'home', label: 'Home' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는 길' }].map((tab) => (
+            {[{ id: 'home', label: 'Home' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는길' }].map((tab) => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>
                 {tab.label}
                 <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span>
