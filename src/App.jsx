@@ -27,8 +27,9 @@ import {
 } from 'lucide-react';
 
 // --- 전역 설정 (유튜브 API용) ---
-const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M"; // 발급받은 API 키 입력 시 자동 업데이트 활성
-const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA"; // 채널 ID 입력 시 자동 업데이트 활성
+// 사용자님께서 입력하신 정보를 상단에 고정했습니다. 여기만 입력하면 모든 곳에 적용됩니다.
+const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M"; 
+const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA"; 
 
 // --- 전역 데이터 ---
 const worshipTimes = [
@@ -73,7 +74,7 @@ const MainHeroSlider = ({ images }) => {
           onError={(e) => { e.target.style.display = 'none'; }}
         />
       ))}
-      <div className="absolute inset-0 flex items-center justify-center -z-10 text-gray-300 font-bold uppercase tracking-widest text-[10px] font-sans p-10 text-center text-center">
+      <div className="absolute inset-0 flex items-center justify-center -z-10 text-gray-300 font-bold uppercase tracking-widest text-[10px] font-sans p-10 text-center">
         이미지 로딩 중
       </div>
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -90,7 +91,7 @@ const Home = ({ onWorshipClick }) => (
     <section className="relative min-h-screen flex items-center bg-white overflow-hidden pt-24 pb-20 font-noto">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
         <div className="z-10 text-left animate-fade-in-up flex flex-col items-start font-sans">
-          <h1 className="text-gray-900 tracking-tighter leading-[1.0] uppercase mb-8 text-left">
+          <h1 className="text-gray-900 tracking-tighter leading-[1.0] uppercase mb-8 text-left font-sans">
             <span className="text-4xl md:text-5xl lg:text-6xl font-bold block mb-4 opacity-80">Welcome to</span>
             <span className="text-6xl md:text-8xl lg:text-9xl font-black block leading-none">Central <br className="hidden lg:block" /> Church</span>
           </h1>
@@ -119,7 +120,7 @@ const Home = ({ onWorshipClick }) => (
 const About = () => (
   <main className="pt-28 md:pt-40 pb-32 px-6 bg-white animate-in fade-in duration-1000 font-noto text-left">
     <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-4 font-sans">
+      <div className="text-center mb-4 font-sans font-bold">
         <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tighter text-gray-900 uppercase">Church Info</h2>
         <div className="w-10 h-1 bg-gray-900 mx-auto rounded-full opacity-20"></div>
       </div>
@@ -164,10 +165,10 @@ const About = () => (
 const Worship = () => (
   <section className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto">
     <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-16 md:mb-24 font-sans">
-        <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter uppercase">Worship</h2>
+      <div className="text-center mb-16 md:mb-24 font-sans font-bold">
+        <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter uppercase font-sans">Worship</h2>
       </div>
-      <div className="grid md:grid-cols-2 gap-8 md:gap-10">
+      <div className="grid md:grid-cols-2 gap-8 md:gap-10 font-bold">
         <div className="bg-white p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] border border-gray-100 shadow-xl shadow-indigo-50/30">
           <h3 className="text-gray-900 font-black text-xl md:text-2xl mb-10 flex items-center gap-4 uppercase tracking-tighter font-sans font-bold"><Clock className="text-indigo-600" strokeWidth={3}/> Sunday</h3>
           <div className="space-y-10">
@@ -199,7 +200,7 @@ const Sermon = ({ videos, isLoading }) => (
   <main className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto text-left font-sans">
     <div className="max-w-7xl mx-auto">
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8">
-         <div className="text-left font-sans">
+         <div className="text-left font-sans font-bold">
             <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-4 block font-sans">Archive</span>
             <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase">주일 말씀</h2>
          </div>
@@ -248,7 +249,6 @@ const Sermon = ({ videos, isLoading }) => (
                 </a>
               ))
             ) : (
-              /* 흐릿한 효과(opacity-40)를 제거하고 배경색을 더 선명하게 조정함 */
               [1, 2, 3].map(i => (
                 <div key={i} className="group">
                   <div className="aspect-video rounded-[2rem] md:rounded-[3.5rem] bg-gray-100 border border-gray-200 mb-8 flex flex-col items-center justify-center text-gray-400 font-bold uppercase tracking-widest text-[10px] shadow-sm">
@@ -272,16 +272,16 @@ const Contact = () => {
     <section className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto text-left font-sans">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start">
-          <div className="lg:col-span-5 space-y-10 md:space-y-12">
+          <div className="lg:col-span-5 space-y-10 md:space-y-12 font-bold">
             <div>
-              <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase">Location</h2>
+              <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-sans">Location</h2>
               <div className="w-12 h-1.5 bg-indigo-600 mt-6 mb-10"></div>
             </div>
             <div className="space-y-10 md:space-y-12">
               <div className="flex gap-5 md:gap-6 items-start group">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Train size={24} strokeWidth={2.5} /></div>
                 <div>
-                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">지하철</h4>
+                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-bold">지하철</h4>
                   <p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto">
                     <span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br />
                     <span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span>
@@ -291,7 +291,7 @@ const Contact = () => {
               <div className="flex gap-5 md:gap-6 items-start group">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Bus size={24} strokeWidth={2.5} /></div>
                 <div>
-                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">버스</h4>
+                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-bold">버스</h4>
                   <p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto">
                     <span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2">350, 4212, 4318, 동작09 등</span><br />
                     방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span>
@@ -301,7 +301,7 @@ const Contact = () => {
               <div className="flex gap-5 md:gap-6 items-start group">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Car size={24} strokeWidth={2.5} /></div>
                 <div>
-                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">자가운전</h4>
+                  <h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-bold">자가운전</h4>
                   <p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p>
                 </div>
               </div>
@@ -318,7 +318,7 @@ const Contact = () => {
                     <span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span>
                   </div>
                 </div>
-                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors"><ExternalLink size={20}/></a>
+                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors font-sans"><ExternalLink size={20}/></a>
               </div>
             </div>
           </div>
@@ -327,8 +327,6 @@ const Contact = () => {
     </section>
   );
 };
-
-// --- 메인 App 컴포넌트 ---
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -343,16 +341,22 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 유튜브 데이터 가져오기 로직 (상단의 전역 변수 YOUTUBE_API_KEY, YOUTUBE_CHANNEL_ID 사용)
   useEffect(() => {
-    if (YOUTUBE_API_KEY && YOUTUBE_CHANNEL_ID !== "UC_PLACEHOLDER") {
+    if (YOUTUBE_API_KEY && YOUTUBE_CHANNEL_ID) {
       const fetchVideos = async () => {
         setIsLoading(true);
         try {
+          // Google 서버에서 실시간 영상 목록을 가져옵니다.
           const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=6&type=video`);
           const data = await res.json();
-          if (data.items) setVideos(data.items);
+          if (data.items) {
+            setVideos(data.items);
+          } else if (data.error) {
+             console.error("유튜브 API 에러 응답:", data.error.message);
+          }
         } catch (err) {
-          console.error("유튜브 에러:", err);
+          console.error("네트워크 에러:", err);
         } finally {
           setIsLoading(false);
         }
@@ -385,15 +389,15 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-indigo-100 selection:text-indigo-900 tracking-tight overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-indigo-100 selection:text-indigo-900 tracking-tight overflow-x-hidden font-bold">
       {/* 모바일 메뉴 (한글 레이블 적용) */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300 font-bold font-sans">
           <div className="flex justify-between items-center p-8 border-b border-gray-50">
             <img src={images.logo} alt="Logo" className="h-8 object-contain" onError={(e) => e.target.style.display='none'} />
             <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2"><X size={32} strokeWidth={1.5} /></button>
           </div>
-          <div className="flex flex-col p-10 space-y-8 overflow-y-auto font-sans">
+          <div className="flex flex-col p-10 space-y-8 overflow-y-auto">
             {[
               { id: 'home', label: '홈' }, 
               { id: 'about', label: '교회소개' }, 
@@ -401,54 +405,46 @@ const App = () => {
               { id: 'sermon', label: '다시듣기' }, 
               { id: 'contact', label: '찾아오는 길' }
             ].map((tab) => (
-              <button 
-                key={tab.id} 
-                onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} 
-                className={`text-5xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase`}
-              >
-                {tab.label}
-              </button>
+              <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} className={`text-5xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase font-bold`}>{tab.label}</button>
             ))}
           </div>
-          <div className="mt-auto p-10 border-t border-gray-50 bg-gray-50/50">
-            <p className="text-[10px] font-black text-gray-300 tracking-[0.4em] uppercase">© 2026 Central Church</p>
-          </div>
+          <div className="mt-auto p-10 border-t border-gray-50 bg-gray-50/50"><p className="text-[10px] font-black text-gray-300 tracking-[0.4em] uppercase font-sans">© 2026 Central Church</p></div>
         </div>
       )}
 
-      <nav className={`fixed w-full z-[1000] transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
+      <nav className={`fixed w-full z-[1000] transition-all duration-500 font-bold ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center font-sans">
-          <div className="flex items-center cursor-pointer group" onClick={() => setActiveTab('home')}>
+          <div className="flex items-center cursor-pointer group font-bold" onClick={() => setActiveTab('home')}>
             <div className="relative h-10 md:h-14 flex items-center">
-               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
-               <div className="hidden items-center gap-2"><BookOpen size={24} className="text-indigo-600" /><span className="text-xl font-black text-gray-900 tracking-tighter uppercase font-bold">Central Church</span></div>
+               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-bold" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
+               <div className="hidden items-center gap-2 font-bold font-sans uppercase"><BookOpen size={24} className="text-indigo-600 font-bold" /><span className="text-xl font-black text-gray-900 tracking-tighter font-bold">Central Church</span></div>
             </div>
           </div>
           
-          <div className="hidden md:flex items-center space-x-12 font-bold uppercase">
+          <div className="hidden md:flex items-center space-x-12 font-bold uppercase font-sans">
             {[
-              { id: 'home', label: '홈' }, 
+              { id: 'home', label: 'Home' }, 
               { id: 'about', label: '교회소개' }, 
               { id: 'worship', label: '예배시간' }, 
               { id: 'sermon', label: '다시듣기' }, 
               { id: 'contact', label: '찾아오는 길' }
             ].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group font-bold ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
             ))}
           </div>
 
-          <div className="md:hidden flex items-center"><button onClick={() => setIsMenuOpen(true)} className="p-3 -mr-3 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100]"><Menu size={28} strokeWidth={1.5} /></button></div>
+          <div className="md:hidden flex items-center font-bold font-sans"><button onClick={() => setIsMenuOpen(true)} className="p-3 -mr-3 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100]"><Menu size={28} strokeWidth={1.5} /></button></div>
         </div>
       </nav>
 
       {renderContent()}
 
-      <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 font-noto text-center font-sans">
+      <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 font-noto text-center font-sans font-bold">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 mb-16">
           <MapPin className="text-indigo-600" size={24} strokeWidth={2} />
           <div className="flex flex-col gap-2"><span className="text-gray-900 font-black text-lg">서울특별시 서초구 방배천로 40-2</span><span className="text-[11px] opacity-70 font-bold">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span></div>
         </div>
-        <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-bold"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
+        <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-bold font-sans"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
       </footer>
 
       <style>{`
