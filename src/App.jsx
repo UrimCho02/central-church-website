@@ -165,7 +165,6 @@ const Worship = () => (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16 md:mb-24 font-sans">
         <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter uppercase">Worship</h2>
-        {/* 요청하신 'Worship Services' 삭제 완료 */}
       </div>
       <div className="grid md:grid-cols-2 gap-8 md:gap-10">
         <div className="bg-white p-10 md:p-16 rounded-[3rem] md:rounded-[4rem] border border-gray-100 shadow-xl shadow-indigo-50/30">
@@ -248,11 +247,14 @@ const Sermon = ({ videos, isLoading }) => (
                 </a>
               ))
             ) : (
+              /* 흐릿하게 보이던 opacity-40을 제거하여 선명하게 수정함 */
               [1, 2, 3].map(i => (
-                <div key={i} className="opacity-40">
-                  <div className="aspect-video rounded-[2rem] md:rounded-[3.5rem] bg-gray-100 mb-8 flex items-center justify-center text-gray-300 font-bold uppercase tracking-widest text-[10px]">최신 영상 대기 중</div>
-                  <div className="h-6 w-3/4 bg-gray-100 mb-4 rounded-full"></div>
-                  <div className="h-4 w-1/4 bg-gray-100 rounded-full"></div>
+                <div key={i} className="group">
+                  <div className="aspect-video rounded-[2rem] md:rounded-[3.5rem] bg-gray-50 border border-gray-100 mb-8 flex items-center justify-center text-gray-300 font-bold uppercase tracking-widest text-[10px] shadow-inner">
+                    최신 영상 대기 중
+                  </div>
+                  <div className="h-6 w-3/4 bg-gray-50 mb-4 rounded-full"></div>
+                  <div className="h-4 w-1/4 bg-gray-50 rounded-full"></div>
                 </div>
               ))
             )}
@@ -311,145 +313,4 @@ const Contact = () => {
                   <p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-bold">센트럴처치</p>
                   <div className="text-[10px] md:text-[11px] text-gray-400 font-bold mt-1 font-sans flex flex-col gap-0.5">
                     <span>서울특별시 서초구 방배천로 40-2</span>
-                    <span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span>
-                  </div>
-                </div>
-                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors"><ExternalLink size={20}/></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- 메인 App 컴포넌트 ---
-
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('home');
-  const [scrolled, setScrolled] = useState(false);
-  const [videos, setVideos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (YOUTUBE_API_KEY && YOUTUBE_CHANNEL_ID !== "UC_PLACEHOLDER") {
-      const fetchVideos = async () => {
-        setIsLoading(true);
-        try {
-          const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=6&type=video`);
-          const data = await res.json();
-          if (data.items) setVideos(data.items);
-        } catch (err) {
-          console.error("유튜브 에러:", err);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchVideos();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-      document.documentElement.style.overflow = 'auto';
-    }
-  }, [isMenuOpen]);
-
-  useEffect(() => { window.scrollTo(0, 0); }, [activeTab]);
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'home': return <Home onWorshipClick={() => setActiveTab('worship')} />;
-      case 'about': return <About />;
-      case 'worship': return <Worship />;
-      case 'sermon': return <Sermon videos={videos} isLoading={isLoading} />;
-      case 'contact': return <Contact />;
-      default: return <Home />;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-indigo-100 selection:text-indigo-900 tracking-tight overflow-x-hidden">
-      {/* 모바일 메뉴 (한글 레이블 적용) */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300">
-          <div className="flex justify-between items-center p-8 border-b border-gray-50">
-            <img src={images.logo} alt="Logo" className="h-8 object-contain" onError={(e) => e.target.style.display='none'} />
-            <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2"><X size={32} strokeWidth={1.5} /></button>
-          </div>
-          <div className="flex flex-col p-10 space-y-8 overflow-y-auto font-sans">
-            {[
-              { id: 'home', label: '홈' }, 
-              { id: 'about', label: '교회소개' }, 
-              { id: 'worship', label: '예배시간' }, 
-              { id: 'sermon', label: '다시듣기' }, 
-              { id: 'contact', label: '찾아오는 길' }
-            ].map((tab) => (
-              <button 
-                key={tab.id} 
-                onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} 
-                className={`text-5xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-          <div className="mt-auto p-10 border-t border-gray-50 bg-gray-50/50">
-            <p className="text-[10px] font-black text-gray-300 tracking-[0.4em] uppercase">© 2026 Central Church</p>
-          </div>
-        </div>
-      )}
-
-      <nav className={`fixed w-full z-[1000] transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center font-sans">
-          <div className="flex items-center cursor-pointer group" onClick={() => setActiveTab('home')}>
-            <div className="relative h-10 md:h-14 flex items-center">
-               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
-               <div className="hidden items-center gap-2"><BookOpen size={24} className="text-indigo-600" /><span className="text-xl font-black text-gray-900 tracking-tighter uppercase font-bold">Central Church</span></div>
-            </div>
-          </div>
-          
-          <div className="hidden md:flex items-center space-x-12 font-bold uppercase">
-            {[{ id: 'home', label: 'Home' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는 길' }].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
-            ))}
-          </div>
-
-          <div className="md:hidden flex items-center"><button onClick={() => setIsMenuOpen(true)} className="p-3 -mr-3 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100]"><Menu size={28} strokeWidth={1.5} /></button></div>
-        </div>
-      </nav>
-
-      {renderContent()}
-
-      <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 font-noto text-center font-sans">
-        <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 mb-16">
-          <MapPin className="text-indigo-600" size={24} strokeWidth={2} />
-          <div className="flex flex-col gap-2"><span className="text-gray-900 font-black text-lg">서울특별시 서초구 방배천로 40-2</span><span className="text-[11px] opacity-70 font-bold">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span></div>
-        </div>
-        <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-bold"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
-      </footer>
-
-      <style>{`
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-        .font-noto { font-family: 'Noto Sans KR', sans-serif; }
-        body { font-family: 'Noto Sans KR', sans-serif; background: #ffffff; -webkit-tap-highlight-color: transparent; }
-      `}</style>
-    </div>
-  );
-};
-
-export default App;
+                    <span className="opacity-70">서초구 방배2동 453-6
