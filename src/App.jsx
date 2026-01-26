@@ -19,12 +19,12 @@ import {
   Quote, 
   Star, 
   ExternalLink,
-  Train,
-  Bus,
-  Car,
-  Loader2,
-  Video,
-  CreditCard,
+  Train, 
+  Bus, 
+  Car, 
+  Loader2, 
+  Video, 
+  CreditCard, 
   Bell
 } from 'lucide-react';
 
@@ -128,7 +128,7 @@ const MainHeroSlider = ({ images }) => {
       {images.map((src, index) => (
         <img key={index} src={src} alt={`Slide ${index + 1}`} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${currentSlide === index ? 'opacity-100' : 'opacity-0'}`} onError={(e) => { e.target.style.display = 'none'; }} />
       ))}
-      <div className="absolute inset-0 flex items-center justify-center -z-10 text-gray-300 font-bold uppercase tracking-widest text-[10px] font-sans p-10 text-center">IMAGE LOADING</div>
+      <div className="absolute inset-0 flex items-center justify-center -z-10 text-gray-300 font-bold uppercase tracking-widest text-[10px] font-sans p-10 text-center text-center">IMAGE LOADING</div>
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10 font-sans">
         {images.map((_, idx) => (
           <div key={idx} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentSlide === idx ? 'w-6 bg-indigo-600' : 'bg-gray-300/50'}`} />
@@ -148,7 +148,7 @@ const Home = ({ onWorshipClick }) => (
             <span className="text-6xl md:text-8xl lg:text-9xl font-black block leading-none">Central <br className="hidden lg:block" /> Church</span>
           </h1>
           <div className="w-16 h-1.5 bg-indigo-600 mb-8"></div>
-          <p className="text-base md:text-xl text-gray-400 font-medium leading-relaxed max-w-md font-noto break-keep">
+          <p className="text-base md:text-xl text-gray-400 font-medium leading-relaxed max-w-md font-noto break-keep text-left">
             센트럴처치 홈페이지를 찾아주신 여러분을 진심으로 환영하고 축복합니다.
           </p>
         </div>
@@ -222,7 +222,7 @@ const Worship = () => (
           <div className="space-y-10">
             {worshipTimes.filter(t => t.name.includes('주일')).map((item, idx) => (
               <div key={idx} className="flex justify-between items-end group">
-                <p className="text-gray-900 font-black text-lg md:text-xl group-hover:text-indigo-600 transition-colors tracking-tighter font-bold">{item.name}</p>
+                <p className="text-gray-900 font-black text-lg md:text-xl group-hover:text-indigo-600 transition-colors tracking-tighter font-bold font-noto">{item.name}</p>
                 <p className="text-gray-900 text-2xl md:text-3xl font-black tracking-tighter font-sans">{item.time}</p>
               </div>
             ))}
@@ -233,7 +233,7 @@ const Worship = () => (
           <div className="space-y-10">
             {worshipTimes.filter(t => !t.name.includes('주일')).map((item, idx) => (
               <div key={idx} className="flex justify-between items-end group">
-                <p className="text-white font-black text-lg md:text-xl group-hover:text-indigo-400 transition-colors tracking-tighter font-bold">{item.name}</p>
+                <p className="text-white font-black text-lg md:text-xl group-hover:text-indigo-400 transition-colors tracking-tighter font-bold font-noto">{item.name}</p>
                 <p className="text-white text-2xl md:text-3xl font-black tracking-tighter font-sans">{item.time}</p>
               </div>
             ))}
@@ -250,7 +250,7 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8">
          <div className="text-left font-sans font-bold">
             <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-4 block font-sans font-black">Archive</span>
-            <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-noto text-left">주일 말씀</h2>
+            <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-noto text-left text-left">주일 말씀</h2>
          </div>
          <a href="https://youtube.com/@centralchurch5467?si=zOJh5JBLDqAlI1fF" target="_blank" rel="noopener noreferrer" className="bg-red-600 text-white px-8 md:px-10 py-4 rounded-full font-black text-[11px] tracking-widest hover:bg-red-700 transition-all uppercase flex items-center gap-3 shadow-xl shadow-red-50 font-sans">
             <Youtube size={20}/> YouTube Channel
@@ -299,9 +299,9 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
 const Contact = () => {
   const mapLink = "https://map.kakao.com/link/search/서울특별시 서초구 방배천로 40-2";
   return (
-    <section className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto text-left font-sans">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start font-bold">
+    <section className="pt-28 md:pt-40 pb-32 px-6 bg-white min-h-screen font-noto text-left font-sans text-left text-left text-left">
+      <div className="max-w-7xl mx-auto text-left">
+        <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start font-bold text-left">
           <div className="lg:col-span-5 space-y-10 md:space-y-12 text-left">
             <div>
               <h2 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none uppercase font-sans font-black text-left">Location</h2>
@@ -309,24 +309,24 @@ const Contact = () => {
             </div>
             <div className="space-y-10 md:space-y-12 font-noto break-keep text-left">
               <div className="flex gap-5 md:gap-6 items-start group text-left">
-                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Train size={24} strokeWidth={2.5} /></div>
-                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span></p></div>
+                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300 text-left"><Train size={24} strokeWidth={2.5} /></div>
+                <div className="text-left text-left text-left text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left text-left"><span className="text-indigo-600 font-black text-lg text-left">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1 text-left">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg text-left text-left">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1 text-left text-left">(도보 10분)</span></p></div>
               </div>
               <div className="flex gap-5 md:gap-6 items-start group text-left">
-                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Bus size={24} strokeWidth={2.5} /></div>
-                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span></p></div>
+                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300 text-left"><Bus size={24} strokeWidth={2.5} /></div>
+                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left text-left">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left text-left"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black text-left text-left">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1 text-left text-left">(도보 3분)</span></p></div>
               </div>
               <div className="flex gap-5 md:gap-6 items-start group text-left">
-                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Car size={24} strokeWidth={2.5} /></div>
-                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black text-left">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black text-left">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
+                <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300 text-left text-left"><Car size={24} strokeWidth={2.5} /></div>
+                <div className="text-left"><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black text-left text-left text-left text-left">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left text-left text-left text-left"><span className="text-indigo-600 font-black text-left text-left">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black text-left text-left text-left text-left">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
               </div>
             </div>
           </div>
-          <div className="lg:col-span-7 h-[500px] md:h-full min-h-[500px]">
-            <div className="bg-white rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-2xl border-[8px] md:border-[16px] border-white h-full relative shadow-indigo-100/50 font-bold">
-              <iframe src="https://maps.google.com/maps?q=서울특별시%20서초구%20방배천로%2040-2&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="Church Map" className="opacity-90 contrast-110"></iframe>
-              <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 z-20 bg-white/90 backdrop-blur-xl p-6 md:p-10 rounded-[2rem] md:rounded-[3.5rem] shadow-2xl flex items-center justify-between border border-white/20">
-                <div className="font-sans text-left font-black"><p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-noto">센트럴처치</p><div className="text-[10px] md:text-[11px] text-gray-400 mt-1 font-sans flex flex-col gap-0.5 font-noto font-black"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
+          <div className="lg:col-span-7 h-[500px] md:h-full min-h-[500px] text-left">
+            <div className="bg-white rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-2xl border-[8px] md:border-[16px] border-white h-full relative shadow-indigo-100/50 font-bold text-left">
+              <iframe src="https://maps.google.com/maps?q=서울특별시%20서초구%20방배천로%2040-2&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="Church Map" className="opacity-90 contrast-110 text-left"></iframe>
+              <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 z-20 bg-white/90 backdrop-blur-xl p-6 md:p-10 rounded-[2rem] md:rounded-[3.5rem] shadow-2xl flex items-center justify-between border border-white/20 text-left">
+                <div className="font-sans text-left font-black text-left"><p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-noto text-left text-left text-left">센트럴처치</p><div className="text-[10px] md:text-[11px] text-gray-400 mt-1 font-sans flex flex-col gap-0.5 font-noto font-black text-left text-left text-left"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70 text-left">서초구 방배2동 453-6 2층, 3층</span></div></div>
                 <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors font-sans"><ExternalLink size={20}/></a>
               </div>
             </div>
@@ -403,11 +403,11 @@ const App = () => {
       {isMenuOpen && (
         <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300 font-bold font-sans">
           <div className="flex justify-between items-center p-8 border-b border-gray-50">
-            {/* 모바일 메뉴 내부 로고 크기 확대 */}
-            <img src={images.logo} alt="Logo" className="h-12 object-contain" onError={(e) => e.target.style.display='none'} />
+            {/* 모바일 메뉴 내부 로고 크기 대폭 확대 (h-12 -> h-16) */}
+            <img src={images.logo} alt="Logo" className="h-16 object-contain" onError={(e) => e.target.style.display='none'} />
             <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2"><X size={32} strokeWidth={1.5} /></button>
           </div>
-          <div className="flex flex-col p-10 space-y-8 overflow-y-auto">
+          <div className="flex flex-col p-10 space-y-8 overflow-y-auto font-sans font-bold">
             {[
               { id: 'home', label: '홈' }, 
               { id: 'about', label: '교회소개' }, 
@@ -415,24 +415,24 @@ const App = () => {
               { id: 'sermon', label: '다시듣기' }, 
               { id: 'contact', label: '찾아오는 길' }
             ].map((tab) => (
-              <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} className={`text-5xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase font-bold`}>{tab.label}</button>
+              <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} className={`text-5xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase font-bold font-sans`}>{tab.label}</button>
             ))}
           </div>
-          <div className="mt-auto p-10 border-t border-gray-50 bg-gray-50/50 font-sans font-bold uppercase"><p className="text-[10px] font-black text-gray-300 tracking-[0.4em]">© 2026 Central Church</p></div>
+          <div className="mt-auto p-10 border-t border-gray-50 bg-gray-50/50 font-sans font-bold uppercase font-bold font-bold"><p className="text-[10px] font-black text-gray-300 tracking-[0.4em]">© 2026 Central Church</p></div>
         </div>
       )}
 
       <nav className={`fixed w-full z-[1000] transition-all duration-500 font-bold ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center font-sans">
           <div className="flex items-center cursor-pointer group font-bold" onClick={() => setActiveTab('home')}>
-            {/* 메인 네비게이션 로고 크기 대폭 확대 */}
-            <div className="relative h-14 md:h-20 flex items-center">
-               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-bold font-sans" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
-               <div className="hidden items-center gap-2 font-bold font-sans uppercase font-bold"><BookOpen size={24} className="text-indigo-600 font-bold font-sans" /><span className="text-xl font-black text-gray-900 tracking-tighter font-noto">Central Church</span></div>
+            {/* 메인 네비게이션 로고 크기 대폭 확대 (h-14 -> h-20, md:h-20 -> md:h-28) */}
+            <div className="relative h-20 md:h-28 flex items-center">
+               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-bold font-sans font-bold" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
+               <div className="hidden items-center gap-2 font-bold font-sans uppercase font-bold font-bold font-bold"><BookOpen size={24} className="text-indigo-600 font-bold font-sans font-bold" /><span className="text-xl font-black text-gray-900 tracking-tighter font-noto font-bold">Central Church</span></div>
             </div>
           </div>
           
-          <div className="hidden md:flex items-center space-x-12 font-bold uppercase font-sans">
+          <div className="hidden md:flex items-center space-x-12 font-bold uppercase font-sans font-bold font-bold">
             {[
               { id: 'home', label: 'Home' }, 
               { id: 'about', label: '교회소개' }, 
@@ -440,4 +440,53 @@ const App = () => {
               { id: 'sermon', label: '다시듣기' }, 
               { id: 'contact', label: '찾아오는 길' }
             ].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group font-bold font-sans ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`text-[13px] tracking-[0.1em] transition-all relative py-1 group font-bold font-sans font-bold font-bold ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
+            ))}
+          </div>
+
+          <div className="md:hidden flex items-center font-bold font-sans font-bold font-bold"><button onClick={() => setIsMenuOpen(true)} className="p-3 -mr-3 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100] font-bold"><Menu size={28} strokeWidth={1.5} /></button></div>
+        </div>
+      </nav>
+
+      {renderContent()}
+
+      <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 font-noto text-center font-sans font-bold font-bold">
+        <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 mb-16 font-bold font-bold">
+          <MapPin className="text-indigo-600 font-bold font-bold" size={24} strokeWidth={2} />
+          <div className="flex flex-col gap-2 font-bold font-bold">
+            <span className="text-gray-900 font-black text-lg font-noto font-bold">서울특별시 서초구 방배천로 40-2</span>
+            <span className="text-[11px] opacity-70 font-bold font-noto font-bold font-bold">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-bold font-sans font-black font-black font-black"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
+      </footer>
+
+      <style>{`
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+        
+        .font-noto { 
+          font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+          word-break: keep-all; 
+          overflow-wrap: break-word;
+        }
+        
+        .break-keep {
+          word-break: keep-all;
+          overflow-wrap: break-word;
+        }
+
+        body { 
+          font-family: 'Noto Sans KR', sans-serif; 
+          background: #ffffff; 
+          -webkit-tap-highlight-color: transparent;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default App;
