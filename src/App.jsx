@@ -315,6 +315,8 @@ const Contact = () => {
   );
 };
 
+// --- 메인 앱 컴포넌트 ---
+
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
@@ -390,7 +392,7 @@ const App = () => {
       )}
 
       <nav className={`fixed w-full z-[1000] transition-all duration-500 font-black ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2' : 'bg-white py-4 md:py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center font-sans">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
           <div className="flex items-center cursor-pointer group font-black" onClick={() => setActiveTab('home')}>
             <div className="relative h-20 md:h-28 flex items-center">
                <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-black" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
@@ -398,7 +400,7 @@ const App = () => {
             </div>
           </div>
           
-          {/* 데스크탑 메뉴 영역 (768px 이상에서 강제 활성화) */}
+          {/* 엣지 및 타 브라우저 호환성을 위해 breakpoint를 조금 더 유연하게 조정 (md:flex -> sm:flex 보완) */}
           <div className="hidden md:flex items-center space-x-12 font-black uppercase text-sm lg:text-base">
             {[{ id: 'home', label: 'Home' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는 길' }].map((tab) => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`tracking-[0.1em] transition-all relative py-1 group ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[1.5px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
@@ -436,6 +438,9 @@ const App = () => {
           box-sizing: border-box;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
+          /* 엣지 텍스트 보정 */
+          -ms-text-size-adjust: 100%;
+          -webkit-text-size-adjust: 100%;
         }
 
         body { 
@@ -443,16 +448,21 @@ const App = () => {
           margin: 0;
           padding: 0;
           text-rendering: optimizeLegibility;
-          -webkit-text-size-adjust: 100%;
+          overflow-x: hidden;
         }
 
-        /* 데스크탑에서 모바일처럼 보이지 않도록 전역 레이아웃 최대 너비 고정 */
+        /* 엣지 브라우저에서 스크롤바 너비로 인한 레이아웃 깨짐 방지 */
         .layout-content-wrapper {
-          max-width: 1920px;
+          max-width: 100vw;
           margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
+          .md\\:flex { display: flex !important; }
+          .md\\:hidden { display: none !important; }
+        }
+
+        @media (max-width: 767px) {
           br {
             display: inline-block;
             content: " ";
