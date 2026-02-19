@@ -51,12 +51,11 @@ const images = {
 
 const heroImages = [images.hero1, images.hero2];
 
-// --- 공지사항 팝업 컴포넌트 (데스크탑에서 너무 작지 않게 크기 상향 조정) ---
+// --- 공지사항 팝업 컴포넌트 ---
 const NoticePopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
-      {/* max-w를 모바일(280px)과 PC(420px)로 나누어 적용 */}
-      <div className="bg-white w-[90%] max-w-[320px] md:max-w-[420px] rounded-[2.5rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300 relative border border-white/20">
+      <div className="bg-white w-[90%] max-w-[320px] md:max-w-[420px] rounded-[2.5rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-300 relative border border-white/20 font-noto">
         <div className="bg-slate-800 py-6 md:py-8 px-6 text-center text-white relative">
           <h3 className="text-xl md:text-2xl font-black tracking-tighter">센트럴처치 안내</h3>
           <div className="w-10 h-1 bg-indigo-500 mx-auto mt-3 rounded-full opacity-50"></div>
@@ -146,8 +145,8 @@ const MainHeroSlider = ({ images }) => {
 
 const Home = () => (
   <main className="relative min-h-screen flex items-center bg-white overflow-hidden pt-[180px] md:pt-[260px] pb-24 font-noto">
-    <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
-      <div className="z-10 text-left animate-fade-in-up flex flex-col items-start">
+    <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid md:grid-cols-2 gap-12 lg:gap-24 items-center text-left">
+      <div className="z-10 text-left animate-fade-in-up flex flex-col items-start font-sans">
         <h1 className="text-gray-900 tracking-tighter leading-[1.1] uppercase mb-10 text-left font-noto">
           <span className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold block mb-4 opacity-80">Welcome to</span>
           <span className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black block leading-none">Central <br className="hidden lg:block" /> Church</span>
@@ -171,7 +170,7 @@ const About = () => (
         <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-gray-900 uppercase font-sans">Church Info</h2>
         <div className="w-12 h-1.5 bg-gray-900 mx-auto rounded-full opacity-20"></div>
       </div>
-      <div className="bg-white rounded-[3rem] md:rounded-[5rem] p-10 md:p-28 border border-gray-100 shadow-2xl shadow-indigo-50/50 mb-20 relative overflow-hidden font-noto">
+      <div className="bg-white rounded-[3rem] md:rounded-[5rem] p-10 md:p-28 border border-gray-100 shadow-2xl shadow-indigo-50/50 mb-20 relative overflow-hidden font-noto text-left">
         <Quote className="absolute -top-10 -left-10 text-indigo-50/50 w-48 h-48 md:w-64 md:h-64" />
         <div className="relative z-10 text-left">
           <div className="space-y-10 md:space-y-14 text-lg md:text-3xl text-gray-600 leading-[1.8] font-medium tracking-normal break-keep">
@@ -182,7 +181,7 @@ const About = () => (
               </div>
             ))}
           </div>
-          <div className="mt-20 md:mt-32 pt-14 md:pt-20 border-t border-gray-100 text-center">
+          <div className="mt-20 md:mt-32 pt-14 md:pt-20 border-t border-gray-100 text-center font-noto">
             <p className="text-xl md:text-4xl font-black text-gray-900 tracking-tighter uppercase leading-relaxed md:leading-relaxed break-keep">
               센트럴처치는 영적으로 갈급해 하는 자들을 위해 세워진 교회입니다. <br className="hidden md:block" />
               복음의 본질인 예수 그리스도를 통하여 말씀을 바라보고, <br className="hidden md:block" />
@@ -197,7 +196,7 @@ const About = () => (
 
 const Worship = () => (
   <section className="pt-[180px] md:pt-[260px] pb-32 px-6 bg-white min-h-screen font-noto">
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto font-noto">
       <div className="text-center mb-20 md:mb-28">
         <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase font-sans">Worship</h2>
       </div>
@@ -219,10 +218,10 @@ const Worship = () => (
         {/* Weekday Section */}
         <div className="bg-gray-900 p-8 md:p-20 rounded-[3rem] md:rounded-[5rem] text-white shadow-2xl text-left">
           <h3 className="text-indigo-400 font-black text-2xl md:text-4xl mb-16 flex items-center gap-6 uppercase tracking-tighter font-sans"><Users className="w-10 h-10 md:w-12 md:h-12" strokeWidth={3}/> Weekday</h3>
-          <div className="space-y-14">
+          <div className="space-y-14 font-noto">
             {worshipTimes.filter(t => !t.name.includes('주일')).map((item, idx) => (
-              <div key={idx} className="grid grid-cols-[1fr_auto] gap-8 items-baseline border-b border-white/5 pb-8">
-                <p className="text-white font-black text-xl md:text-3xl tracking-tighter whitespace-nowrap">{item.name}</p>
+              <div key={idx} className="grid grid-cols-[1fr_auto] gap-8 items-baseline border-b border-white/5 pb-8 font-noto">
+                <p className="text-white font-black text-xl md:text-3xl tracking-tighter whitespace-nowrap font-noto">{item.name}</p>
                 <p className="text-white text-2xl md:text-5xl font-black tracking-tighter font-sans text-right min-w-[140px] md:min-w-[240px]">{item.time}</p>
               </div>
             ))}
@@ -238,7 +237,7 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
     <div className="max-w-7xl mx-auto">
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 md:mb-24 gap-10">
          <div className="text-left font-sans font-bold">
-            <span className="text-indigo-600 font-bold tracking-[0.4em] text-[12px] md:text-sm uppercase mb-4 block font-black">ARCHIVE</span>
+            <span className="text-indigo-600 font-bold tracking-[0.4em] text-[12px] md:text-sm uppercase mb-4 block font-black font-sans">ARCHIVE</span>
             <h2 className="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter leading-none uppercase">주일 말씀</h2>
          </div>
          <a href="https://youtube.com/@centralchurch5467" target="_blank" rel="noopener noreferrer" className="bg-red-600 text-white px-10 md:px-14 py-5 rounded-full font-black text-xs md:text-sm tracking-widest hover:bg-red-700 transition-all uppercase flex items-center gap-4 shadow-xl shadow-red-50 font-sans">
@@ -247,12 +246,12 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
        </div>
 
        {isLoading ? (
-         <div className="flex flex-col items-center justify-center py-40 text-gray-300 gap-6">
+         <div className="flex flex-col items-center justify-center py-40 text-gray-300 gap-6 font-sans">
            <Loader2 className="animate-spin" size={64} />
            <p className="font-bold tracking-widest text-sm uppercase text-gray-400">최신 영상을 불러오는 중...</p>
          </div>
        ) : (
-         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20">
+         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-20 font-noto">
             {videos.length > 0 ? (
               videos.map((video, i) => (
                 <div key={i} onClick={() => onVideoSelect(video.id.videoId)} className="group cursor-pointer block text-left font-noto">
@@ -272,8 +271,8 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
               ))
             ) : (
               [1, 2, 3].map(i => (
-                <div key={i} className="group opacity-50 text-left">
-                  <div className="aspect-video rounded-[2.5rem] md:rounded-[4rem] bg-gray-100 border border-gray-200 mb-10 flex flex-col items-center justify-center text-gray-400 font-bold uppercase tracking-widest text-[12px] shadow-sm"><Video size={40} className="mb-4 opacity-20" /><span>영상 대기 중</span></div>
+                <div key={i} className="group opacity-50 text-left font-noto">
+                  <div className="aspect-video rounded-[2.5rem] md:rounded-[4rem] bg-gray-100 border border-gray-200 mb-10 flex flex-col items-center justify-center text-gray-400 font-bold uppercase tracking-widest text-[12px] shadow-sm font-noto"><Video size={40} className="mb-4 opacity-20" /><span>영상 대기 중</span></div>
                   <div className="h-8 w-3/4 bg-gray-100 mb-5 rounded-full"></div>
                   <div className="h-5 w-1/4 bg-gray-100 rounded-full"></div>
                 </div>
@@ -289,7 +288,7 @@ const Contact = () => {
   const mapLink = "https://map.kakao.com/link/search/서울특별시 서초구 방배천로 40-2";
   return (
     <section className="pt-[180px] md:pt-[260px] pb-32 px-6 bg-white min-h-screen text-left font-noto">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto font-noto">
         <div className="grid lg:grid-cols-12 gap-16 md:gap-24 items-start font-bold">
           <div className="lg:col-span-5 space-y-14 md:space-y-20 text-left">
             <div>
@@ -298,25 +297,25 @@ const Contact = () => {
             </div>
             <div className="space-y-12 md:space-y-16 break-keep">
               <div className="flex gap-8 md:gap-10 items-start group">
-                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Train size={32} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight">지하철</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-2">(도보 5분)</span><br /><span className="text-indigo-600 font-black">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-2">(도보 10분)</span></p></div>
+                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300 font-noto"><Train size={32} strokeWidth={2.5} /></div>
+                <div className="font-noto"><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight font-noto">지하철</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-2">(도보 5분)</span><br /><span className="text-indigo-600 font-black">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-2">(도보 10분)</span></p></div>
               </div>
               <div className="flex gap-8 md:gap-10 items-start group">
-                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Bus size={32} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight">버스</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto"><span className="bg-indigo-50 text-indigo-700 px-4 py-1 rounded-xl font-black mr-3">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-2">(도보 3분)</span></p></div>
+                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300 font-noto"><Bus size={32} strokeWidth={2.5} /></div>
+                <div className="font-noto"><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight font-noto">버스</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto"><span className="bg-indigo-50 text-indigo-700 px-4 py-1 rounded-xl font-black mr-3">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-2">(도보 3분)</span></p></div>
               </div>
-              <div className="flex gap-8 md:gap-10 items-start group">
-                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Car size={32} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight font-black">자가운전</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-sm md:text-base text-gray-400 font-black">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
+              <div className="flex gap-8 md:gap-10 items-start group font-noto">
+                <div className="bg-indigo-600 p-5 rounded-3xl text-white shadow-xl shadow-indigo-100 group-hover:scale-110 transition-all duration-300 font-noto"><Car size={32} strokeWidth={2.5} /></div>
+                <div className="font-noto"><h4 className="font-black text-2xl md:text-3xl mb-4 text-gray-900 tracking-tight font-black">자가운전</h4><p className="text-base md:text-xl text-gray-500 leading-relaxed font-noto font-noto"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-sm md:text-base text-gray-400 font-black">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
               </div>
             </div>
           </div>
-          <div className="lg:col-span-7 h-[600px] md:h-full min-h-[600px]">
-            <div className="bg-white rounded-[4rem] md:rounded-[6rem] overflow-hidden shadow-2xl border-[12px] md:border-[24px] border-white h-full relative shadow-indigo-100/50">
+          <div className="lg:col-span-7 h-[600px] md:h-full min-h-[600px] font-noto">
+            <div className="bg-white rounded-[4rem] md:rounded-[6rem] overflow-hidden shadow-2xl border-[12px] md:border-[24px] border-white h-full relative shadow-indigo-100/50 font-noto">
               <iframe src="https://maps.google.com/maps?q=서울특별시%20서초구%20방배천로%2040-2&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="Church Map" className="opacity-90 contrast-110"></iframe>
-              <div className="absolute bottom-8 left-8 right-8 md:bottom-16 md:left-16 md:right-16 z-20 bg-white/90 backdrop-blur-xl p-8 md:p-14 rounded-[3rem] md:rounded-[4rem] shadow-2xl flex items-center justify-between border border-white/20">
-                <div className="text-left font-black"><p className="font-black text-gray-900 text-2xl md:text-4xl tracking-tighter uppercase font-noto mb-2">센트럴처치</p><div className="text-xs md:text-lg text-gray-400 mt-1 flex flex-col gap-1 font-noto"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
-                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-4 md:p-8 rounded-3xl md:rounded-[3rem] shadow-lg hover:bg-indigo-700 transition-colors"><ExternalLink size={28}/></a>
+              <div className="absolute bottom-8 left-8 right-8 md:bottom-16 md:left-16 md:right-16 z-20 bg-white/90 backdrop-blur-xl p-8 md:p-14 rounded-[3rem] md:rounded-[4rem] shadow-2xl flex items-center justify-between border border-white/20 font-noto">
+                <div className="text-left font-black font-noto"><p className="font-black text-gray-900 text-2xl md:text-4xl tracking-tighter uppercase font-noto mb-2">센트럴처치</p><div className="text-xs md:text-lg text-gray-400 mt-1 flex flex-col gap-1 font-noto font-noto font-black"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
+                <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-4 md:p-8 rounded-3xl md:rounded-[3rem] shadow-lg hover:bg-indigo-700 transition-colors font-sans"><ExternalLink size={28}/></a>
               </div>
             </div>
           </div>
@@ -382,58 +381,58 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 selection:bg-indigo-100 selection:text-indigo-900 tracking-tight overflow-x-hidden font-black">
+    <div className="min-h-screen bg-white text-gray-900 selection:bg-indigo-100 selection:text-indigo-900 tracking-tight overflow-x-hidden font-black font-noto">
       
       {isPopupOpen && <NoticePopup onClose={() => setIsPopupOpen(false)} />}
       {selectedVideoId && <VideoModal videoId={selectedVideoId} onClose={() => setSelectedVideoId(null)} />}
 
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300 font-black">
-          <div className="flex justify-between items-center p-8 border-b border-gray-50">
+        <div className="fixed inset-0 bg-white z-[9999] flex flex-col animate-in fade-in slide-in-from-right duration-300 font-black font-noto">
+          <div className="flex justify-between items-center p-8 border-b border-gray-50 font-noto">
             <img src={images.logo} alt="Logo" className="h-20 object-contain" onError={(e) => e.target.style.display='none'} />
-            <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2"><X size={36} strokeWidth={1.5} /></button>
+            <button onClick={() => setIsMenuOpen(false)} className="text-gray-900 p-2 font-noto font-noto"><X size={36} strokeWidth={1.5} /></button>
           </div>
-          <div className="flex flex-col p-12 space-y-10 overflow-y-auto">
+          <div className="flex flex-col p-12 space-y-10 overflow-y-auto font-noto font-noto">
             {[{ id: 'home', label: '홈' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는 길' }].map((tab) => (
-              <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} className={`text-6xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase font-noto`}>{tab.label}</button>
+              <button key={tab.id} onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }} className={`text-6xl font-black text-left tracking-tighter ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-300'} active:text-indigo-400 transition-colors uppercase font-noto font-noto font-black`}>{tab.label}</button>
             ))}
           </div>
-          <div className="mt-auto p-12 border-t border-gray-50 bg-gray-50/50 uppercase font-sans"><p className="text-xs font-black text-gray-300 tracking-[0.4em]">© 2026 Central Church</p></div>
+          <div className="mt-auto p-12 border-t border-gray-50 bg-gray-50/50 uppercase font-sans font-noto font-black"><p className="text-xs font-black text-gray-300 tracking-[0.4em]">© 2026 Central Church</p></div>
         </div>
       )}
 
-      <nav className={`fixed w-full z-[1000] transition-all duration-500 font-black ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' : 'bg-white py-6 md:py-10'}`}>
-        <div className="max-w-[1920px] mx-auto px-6 md:px-16 flex justify-between items-center">
-          <div className="flex items-center cursor-pointer group font-black" onClick={() => setActiveTab('home')}>
-            <div className="relative h-20 md:h-32 lg:h-36 flex items-center">
-               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-black" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
-               <div className="hidden items-center gap-3 uppercase font-black"><BookOpen size={32} className="text-indigo-600 font-black" /><span className="text-2xl font-black text-gray-900 tracking-tighter">Central Church</span></div>
+      <nav className={`fixed w-full z-[1000] transition-all duration-500 font-black font-noto ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' : 'bg-white py-6 md:py-10'}`}>
+        <div className="max-w-[1920px] mx-auto px-6 md:px-16 flex justify-between items-center font-noto">
+          <div className="flex items-center cursor-pointer group font-black font-noto font-black font-black font-noto" onClick={() => setActiveTab('home')}>
+            <div className="relative h-20 md:h-32 lg:h-36 flex items-center font-noto">
+               <img src={images.logo} alt="Central Church" className="h-full w-auto object-contain font-black font-noto font-black font-black" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
+               <div className="hidden items-center gap-3 uppercase font-black font-noto font-black font-black font-black"><BookOpen size={32} className="text-indigo-600 font-black" /><span className="text-xl md:text-2xl font-black text-gray-900 tracking-tighter font-noto font-black">Central Church</span></div>
             </div>
           </div>
           
-          <div className="hidden lg:flex items-center space-x-16 font-black uppercase text-base xl:text-lg">
+          <div className="hidden lg:flex items-center space-x-16 font-black uppercase text-base xl:text-lg font-sans font-black font-black font-black font-black">
             {[{ id: 'home', label: 'Home' }, { id: 'about', label: '교회소개' }, { id: 'worship', label: '예배시간' }, { id: 'sermon', label: '다시듣기' }, { id: 'contact', label: '찾아오는 길' }].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`tracking-[0.1em] transition-all relative py-1 group ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`tracking-[0.1em] transition-all relative py-1 group font-black font-black font-black ${activeTab === tab.id ? 'text-indigo-600' : 'text-gray-400 hover:text-gray-900'}`}>{tab.label}<span className={`absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 transform origin-left transition-transform duration-300 ${activeTab === tab.id ? 'scale-x-100' : 'scale-x-0'}`}></span></button>
             ))}
           </div>
 
-          <div className="lg:hidden flex items-center font-black"><button onClick={() => setIsMenuOpen(true)} className="p-4 -mr-4 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100]"><Menu size={32} strokeWidth={1.5} /></button></div>
+          <div className="lg:hidden flex items-center font-black font-noto font-black font-black"><button onClick={() => setIsMenuOpen(true)} className="p-4 -mr-4 text-gray-900 active:bg-gray-50 rounded-full transition-colors relative z-[1100] font-noto font-black"><Menu size={32} strokeWidth={1.5} /></button></div>
         </div>
       </nav>
 
-      <div className="layout-content-wrapper min-w-[320px]">
+      <div className="layout-content-wrapper font-noto font-black">
         {renderContent()}
       </div>
 
-      <footer className="bg-white text-gray-400 py-32 md:py-48 px-6 border-t border-gray-50 text-center font-black">
-        <div className="max-w-7xl mx-auto flex flex-col items-center gap-8 mb-20 font-black">
-          <MapPin className="text-indigo-600 font-black" size={32} strokeWidth={2} />
-          <div className="flex flex-col gap-3 font-black font-noto text-xl md:text-2xl">
-            <span className="text-gray-900 font-black">서울특별시 서초구 방배천로 40-2</span>
-            <span className="text-sm md:text-lg opacity-70 font-black">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span>
+      <footer className="bg-white text-gray-400 py-32 md:py-48 px-6 border-t border-gray-50 text-center font-black font-noto">
+        <div className="max-w-7xl mx-auto flex flex-col items-center gap-8 mb-20 font-black font-noto font-black">
+          <MapPin className="text-indigo-600 font-black font-black" size={32} strokeWidth={2} />
+          <div className="flex flex-col gap-3 font-black font-noto text-xl md:text-2xl font-black">
+            <span className="text-gray-900 font-black font-noto font-black">서울특별시 서초구 방배천로 40-2</span>
+            <span className="text-sm md:text-lg opacity-70 font-black font-noto font-black">(지번)서울특별시 서초구 방배2동 453-6 2층, 3층</span>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto pt-20 border-t border-gray-50 text-xs md:text-sm font-black uppercase tracking-[0.5em] text-gray-300"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
+        <div className="max-w-7xl mx-auto pt-20 border-t border-gray-50 text-xs md:text-sm font-black uppercase tracking-[0.5em] text-gray-300 font-sans font-black font-black"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
       </footer>
 
       <style>{`
