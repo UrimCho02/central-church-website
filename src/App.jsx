@@ -55,45 +55,50 @@ const heroImages = [images.hero1, images.hero2];
 const NoticePopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white w-full max-w-[290px] rounded-[2rem] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 relative border border-white/20 font-noto">
-        <div className="bg-slate-800 py-4 px-6 text-center text-white relative">
-          <h3 className="text-base font-black tracking-tighter">센트럴처치 안내</h3>
+      <div className="bg-white w-full max-w-[300px] md:max-w-[360px] rounded-[2rem] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 relative border border-white/20 font-noto">
+        <div className="bg-slate-800 py-5 px-6 text-center text-white relative">
+          <h3 className="text-lg font-black tracking-tighter">센트럴처치 안내</h3>
+          <div className="w-8 h-1 bg-indigo-500 mx-auto mt-2 rounded-full opacity-50"></div>
           <button 
             onClick={onClose} 
-            className="absolute top-1/2 -translate-y-1/2 right-4 text-white/70 hover:text-white bg-white/10 p-1 rounded-full transition-all"
+            className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 p-1.5 rounded-full transition-all"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
         <div className="p-5 space-y-5 text-center font-noto">
           <div>
-            <p className="text-gray-900 font-bold text-[13px] leading-relaxed break-keep">
+            <p className="text-gray-900 font-bold text-[14px] leading-relaxed break-keep">
               주일 1,2부 예배시 <br />
               <span className="text-indigo-600 font-black">10분 전부터 찬양</span>이 시작됩니다.
             </p>
           </div>
           <div className="w-full h-px bg-gray-100"></div>
           <div>
-            <h4 className="text-gray-400 font-black text-[8px] uppercase tracking-widest mb-0.5 font-sans">PARKING</h4>
-            <p className="text-gray-800 font-bold text-[11px]">교회 앞 공영주차장을 이용해 주세요.</p>
+            <h4 className="text-gray-400 font-black text-[9px] uppercase tracking-widest mb-0.5 font-sans">PARKING</h4>
+            <p className="text-gray-800 font-bold text-xs">교회 앞 공영주차장을 이용해 주세요.</p>
           </div>
           <div className="w-full h-px bg-gray-100"></div>
           <div>
-            <h4 className="text-gray-400 font-black text-[8px] uppercase tracking-widest mb-0.5 font-sans">YOUTUBE</h4>
-            <p className="text-gray-800 font-bold text-[11px]">지난 설교는 <span className="text-red-600 font-black">교회 유튜브</span>에서</p>
+            <h4 className="text-gray-400 font-black text-[9px] uppercase tracking-widest mb-0.5 font-sans">YOUTUBE</h4>
+            <p className="text-gray-800 font-bold text-xs">지난 설교는 <span className="text-red-600 font-black">교회 유튜브</span>에서</p>
             <p className="text-gray-400 text-[9px]">(센트럴처치 검색)</p>
           </div>
           <div className="bg-indigo-50/50 rounded-2xl p-4 text-center border border-indigo-100">
-            <h4 className="text-indigo-600 font-black text-[8px] uppercase tracking-widest mb-1.5 flex items-center justify-center gap-1 font-sans">
+            <h4 className="text-indigo-600 font-black text-[9px] uppercase tracking-widest mb-1.5 flex items-center justify-center gap-1.5 font-sans">
               <CreditCard size={12} /> OFFERING
             </h4>
-            <p className="text-gray-900 font-black text-base tracking-tight mb-0.5">국민은행 437637-01-009066</p>
-            <p className="text-gray-600 font-bold text-[10px] mb-1">예금주: 중앙교회</p>
-            <p className="text-[9px] text-gray-400 leading-tight">성함과 헌금 명목을 꼭 적어주세요.</p>
+            <p className="text-gray-900 font-black text-lg tracking-tight mb-0.5 font-sans">국민은행 437637-01-009066</p>
+            <p className="text-gray-600 font-bold text-[11px] mb-1">예금주: 중앙교회</p>
+            <p className="text-[10px] text-gray-400 leading-tight break-keep">
+              성함과 헌금 명목을 꼭 적어주세요.
+            </p>
           </div>
         </div>
-        <button onClick={onClose} className="w-full py-3 bg-slate-800 text-white font-black uppercase tracking-[0.2em] text-[10px] hover:bg-black transition-colors">닫기</button>
+        <button onClick={onClose} className="w-full py-4 bg-slate-800 text-white font-black uppercase tracking-[0.2em] text-[10px] hover:bg-black transition-colors font-noto text-bold">
+          닫기
+        </button>
       </div>
     </div>
   );
@@ -104,7 +109,7 @@ const VideoModal = ({ videoId, onClose }) => {
   if (!videoId) return null;
   return (
     <div className="fixed inset-0 z-[10001] flex items-center justify-center p-4 md:p-10 bg-black/95 backdrop-blur-md animate-in fade-in duration-300" onClick={onClose}>
-      <div className="relative w-full max-w-5xl aspect-video rounded-[1.5rem] overflow-hidden shadow-2xl bg-black border border-white/10" onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full max-w-5xl aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black border border-white/10" onClick={(e) => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 z-20 text-white/50 hover:text-white bg-black/20 hover:bg-black/40 p-1.5 rounded-full transition-all"><X size={24} /></button>
         <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
       </div>
@@ -139,7 +144,7 @@ const MainHeroSlider = ({ images }) => {
 };
 
 const Home = () => (
-  <main className="relative min-h-screen flex items-center bg-white overflow-hidden pt-[120px] md:pt-[160px] pb-16 font-noto">
+  <main className="relative min-h-screen flex items-center bg-white overflow-hidden pt-[120px] md:pt-[160px] pb-16 font-noto text-left">
     <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
       <div className="z-10 text-left animate-fade-in-up flex flex-col items-start font-sans">
         <h1 className="text-gray-900 tracking-tighter leading-[1.1] uppercase mb-8 text-left font-noto">
@@ -232,8 +237,8 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
     <div className="max-w-7xl mx-auto">
        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8">
          <div className="text-left font-sans font-bold">
-            <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-3 block font-black">ARCHIVE</span>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter leading-none uppercase">주일 말씀</h2>
+            <span className="text-indigo-600 font-bold tracking-[0.4em] text-[10px] uppercase mb-4 block font-black">ARCHIVE</span>
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter leading-none uppercase text-left">주일 말씀</h2>
          </div>
          <a href="https://youtube.com/@centralchurch5467" target="_blank" rel="noopener noreferrer" className="bg-red-600 text-white px-8 md:px-12 py-4 rounded-full font-black text-[11px] tracking-widest hover:bg-red-700 transition-all uppercase flex items-center gap-3 shadow-xl shadow-red-50 font-sans">
             <Youtube size={18}/> YouTube Channel
@@ -241,7 +246,7 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
        </div>
 
        {isLoading ? (
-         <div className="flex flex-col items-center justify-center py-40 text-gray-300 gap-4">
+         <div className="flex flex-col items-center justify-center py-40 text-gray-300 gap-4 font-sans">
            <Loader2 className="animate-spin" size={48} />
            <p className="font-bold tracking-widest text-xs uppercase text-gray-400">최신 영상을 불러오는 중...</p>
          </div>
@@ -256,10 +261,10 @@ const Sermon = ({ videos, isLoading, onVideoSelect }) => (
                         <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-2xl text-indigo-600 transform scale-90 group-hover:scale-100 transition-transform"><PlayCircle size={32} /></div>
                      </div>
                   </div>
-                  <h4 className="text-lg md:text-xl font-black text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug break-keep">
+                  <h4 className="text-lg md:text-xl font-black text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug break-keep text-left">
                     {video.snippet.title}
                   </h4>
-                  <p className="text-gray-400 text-[11px] font-bold font-sans tracking-widest uppercase">
+                  <p className="text-gray-400 text-[11px] font-bold font-sans tracking-widest uppercase text-left">
                     {new Date(video.snippet.publishedAt).toLocaleDateString('ko-KR')}
                   </p>
                 </div>
@@ -290,18 +295,18 @@ const Contact = () => {
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter leading-none uppercase font-sans font-black text-left">Location</h2>
               <div className="w-12 h-1.5 bg-indigo-600 mt-6 mb-10"></div>
             </div>
-            <div className="space-y-10 md:space-y-12 break-keep">
+            <div className="space-y-10 md:space-y-12 break-keep text-left">
               <div className="flex gap-5 md:gap-6 items-start group">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Train size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span></p></div>
+                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">지하철</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left"><span className="text-indigo-600 font-black text-lg">사당역</span> (2, 4호선) 11~14번 출구 <span className="text-gray-400 font-bold ml-1">(도보 5분)</span><br /><span className="text-indigo-600 font-black text-lg">이수역</span> (4, 7호선) 4, 5번 출구 <span className="text-gray-400 font-bold ml-1">(도보 10분)</span></p></div>
               </div>
               <div className="flex gap-5 md:gap-6 items-start group">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Bus size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span></p></div>
+                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight text-left">버스</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left text-left"><span className="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-lg font-black mr-2 font-black">350, 4212, 4318, 동작09 등</span><br />방배노인종합복지관(중) 하차 <span className="text-gray-400 font-bold ml-1">(도보 3분)</span></p></div>
               </div>
-              <div className="flex gap-5 md:gap-6 items-start group">
+              <div className="flex gap-5 md:gap-6 items-start group text-left">
                 <div className="bg-indigo-600 p-4 rounded-2xl md:rounded-3xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-all duration-300"><Car size={24} strokeWidth={2.5} /></div>
-                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto"><span className="text-indigo-600 font-black">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
+                <div><h4 className="font-black text-xl mb-3 text-gray-900 tracking-tight font-black text-left">자가운전</h4><p className="text-sm md:text-base text-gray-500 leading-relaxed font-noto text-left text-left text-left text-left"><span className="text-indigo-600 font-black text-left">'서초구 방배천로 40-2'</span><br /><span className="text-xs text-gray-400 font-black font-black text-left text-left text-left">교회 앞 공영주차장을 이용해 주시기 바랍니다.</span></p></div>
               </div>
             </div>
           </div>
@@ -309,7 +314,7 @@ const Contact = () => {
             <div className="bg-white rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-2xl border-[8px] md:border-[16px] border-white h-full relative shadow-indigo-100/50">
               <iframe src="https://maps.google.com/maps?q=서울특별시%20서초구%20방배천로%2040-2&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" title="Church Map" className="opacity-90 contrast-110"></iframe>
               <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 z-20 bg-white/90 backdrop-blur-xl p-6 md:p-10 rounded-[2rem] md:rounded-[3.5rem] shadow-2xl flex items-center justify-between border border-white/20">
-                <div className="text-left font-black"><p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-noto">센트럴처치</p><div className="text-[10px] md:text-[11px] text-gray-400 mt-1 flex flex-col gap-0.5 font-noto font-black text-left"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
+                <div className="text-left font-black"><p className="font-black text-gray-900 text-lg md:text-2xl tracking-tighter uppercase font-noto">센트럴처치</p><div className="text-[10px] md:text-[11px] text-gray-400 mt-1 flex flex-col gap-0.5 font-noto font-black text-left text-left text-left text-left"><span>서울특별시 서초구 방배천로 40-2</span><span className="opacity-70">서초구 방배2동 453-6 2층, 3층</span></div></div>
                 <a href={mapLink} target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white p-3 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:bg-indigo-700 transition-colors font-sans"><ExternalLink size={20}/></a>
               </div>
             </div>
@@ -344,7 +349,10 @@ const App = () => {
         try {
           const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=6&type=video`);
           const data = await res.json();
-          if (data.items) setVideos(data.items);
+          // 브라우저 캐시 무시를 위해 items가 있으면 명시적으로 6개만 자름
+          if (data.items) {
+            setVideos(data.items.slice(0, 6));
+          }
         } catch (err) { console.error("유튜브 로딩 에러:", err); }
         finally { setIsLoading(false); }
       };
