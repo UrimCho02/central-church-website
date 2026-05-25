@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  MapPin, 
-  Clock, 
-  Phone, 
-  Mail, 
-  Calendar, 
-  PlayCircle, 
-  BookOpen, 
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Menu,
+  X,
+  MapPin,
+  Clock,
+  Phone,
+  Mail,
+  Calendar,
+  PlayCircle,
+  BookOpen,
   ChevronRight,
-  Heart, 
-  Users, 
-  Info, 
-  Youtube, 
-  Navigation as NavIcon, 
-  ChevronDown, 
-  Quote, 
-  Star, 
+  Heart,
+  Users,
+  Info,
+  Youtube,
+  Navigation as NavIcon,
+  ChevronDown,
+  Quote,
+  Star,
   ExternalLink,
-  Train, 
-  Bus, 
-  Car, 
-  Loader2, 
-  Video, 
-  CreditCard, 
-  Bell
+  Train,
+  Bus,
+  Car,
+  Loader2,
+  Video,
+  CreditCard,
+  Bell,
+  MessageCircle,
+  Send
 } from 'lucide-react';
+
+const CHATBOT_API_URL = "https://central-church-chatbot.onrender.com";
 
 // --- 전역 설정 (유튜브 API용) ---
 const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M"; 
@@ -325,6 +329,176 @@ const Contact = () => {
   );
 };
 
+// --- 챗봇 상담 위젯 ---
+const ChatWidget = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    {
+      role: 'assistant',
+      text: '안녕하세요. 설교 말씀을 바탕으로 신앙 상담을 도와드립니다. 마음에 있는 질문이나 고민을 편하게 적어주세요.'
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [coldStartHint, setColdStartHint] = useState(false);
+  const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isLoading]);
+
+  const sendMessage = async () => {
+    const q = input.trim();
+    if (!q || isLoading) return;
+
+    setMessages((m) => [...m, { role: 'user', text: q }]);
+    setInput('');
+    if (textareaRef.current) textareaRef.current.style.height = 'auto';
+    setIsLoading(true);
+    setColdStartHint(false);
+
+    const coldTimer = setTimeout(() => setColdStartHint(true), 8000);
+    const controller = new AbortController();
+    const abortTimer = setTimeout(() => controller.abort(), 90000);
+
+    try {
+      const res = await fetch(`${CHATBOT_API_URL}/ask`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: q }),
+        signal: controller.signal
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setMessages((m) => [...m, { role: 'assistant', text: data.answer }]);
+    } catch (err) {
+      const isTimeout = err.name === 'AbortError';
+      setMessages((m) => [
+        ...m,
+        {
+          role: 'assistant',
+          text: isTimeout
+            ? '서버 응답이 너무 오래 걸렸습니다. 잠시 후 다시 시도해 주세요.'
+            : '죄송합니다. 답변을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.',
+          isError: true
+        }
+      ]);
+    } finally {
+      clearTimeout(coldTimer);
+      clearTimeout(abortTimer);
+      setIsLoading(false);
+      setColdStartHint(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const handleInput = (e) => {
+    setInput(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = Math.min(e.target.scrollHeight, 128) + 'px';
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(true)}
+        className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] w-16 h-16 md:w-[72px] md:h-[72px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-2xl shadow-indigo-300/40 flex items-center justify-center transition-all duration-300 font-noto ${
+          isOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'
+        }`}
+        aria-label="상담 챗봇 열기"
+      >
+        <MessageCircle size={28} strokeWidth={2} />
+      </button>
+
+      {isOpen && (
+        <div className="fixed inset-0 md:inset-auto md:bottom-6 md:right-6 z-[9999] md:w-[400px] md:h-[640px] md:max-h-[85vh] bg-white md:rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 animate-in fade-in slide-in-from-bottom duration-300 font-noto">
+          <div className="bg-slate-800 text-white px-6 py-5 flex items-center justify-between shrink-0">
+            <div className="text-left">
+              <h3 className="font-black text-base tracking-tight">센트럴처치 상담</h3>
+              <p className="text-[9px] uppercase tracking-[0.25em] text-indigo-300 font-bold mt-1 font-sans">
+                Sermon-Based AI
+              </p>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white/70 hover:text-white p-1.5 bg-white/10 rounded-full transition-all"
+              aria-label="닫기"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          <div className="bg-indigo-50/60 px-5 py-3 text-[11px] text-indigo-900/80 leading-relaxed break-keep border-b border-indigo-100 shrink-0 font-medium">
+            AI가 설교 말씀을 근거로 답변합니다. 더 깊은 상담은 담임 목사님과 직접 나누어 주세요.
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4 bg-white">
+            {messages.map((m, i) => (
+              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div
+                  className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed break-keep whitespace-pre-wrap font-medium ${
+                    m.role === 'user'
+                      ? 'bg-indigo-600 text-white rounded-br-md'
+                      : m.isError
+                      ? 'bg-red-50 text-red-900 rounded-bl-md border border-red-100'
+                      : 'bg-gray-100 text-gray-900 rounded-bl-md'
+                  }`}
+                >
+                  {m.text}
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-bl-md flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" />
+                  {coldStartHint && (
+                    <span className="text-[10px] text-gray-500 ml-2 font-medium">서버 깨우는 중...</span>
+                  )}
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          <div className="border-t border-gray-100 p-3 bg-white shrink-0">
+            <div className="flex gap-2 items-end">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={handleInput}
+                onKeyDown={handleKeyDown}
+                placeholder="고민이나 질문을 입력하세요..."
+                rows={1}
+                disabled={isLoading}
+                className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl text-sm leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-600 disabled:opacity-50 font-medium break-keep"
+                style={{ maxHeight: '128px' }}
+              />
+              <button
+                onClick={sendMessage}
+                disabled={!input.trim() || isLoading}
+                className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shrink-0"
+                aria-label="전송"
+              >
+                <Send size={18} strokeWidth={2.5} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
 // --- 메인 앱 컴포넌트 ---
 
 const App = () => {
@@ -426,6 +600,8 @@ const App = () => {
       <div className="layout-content-wrapper font-noto">
         {renderContent()}
       </div>
+
+      <ChatWidget />
 
       <footer className="bg-white text-gray-400 py-24 md:py-32 px-6 border-t border-gray-50 text-center font-black font-noto">
         <div className="max-w-7xl mx-auto flex flex-col items-center gap-6 mb-16 font-black font-noto">
