@@ -33,8 +33,8 @@ import {
 const CHATBOT_API_URL = "https://central-church-chatbot.onrender.com";
 
 // --- 전역 설정 (유튜브 API용) ---
-const YOUTUBE_API_KEY = "AIzaSyCcNp1sgnwVpv73VlhU-l2bPjA4w0BRn9M"; 
-const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA"; 
+const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+const YOUTUBE_CHANNEL_ID = "UCC89jn_fly4DJqzY96M8cBA";
 
 // --- 전역 데이터 ---
 const worshipTimes = [
