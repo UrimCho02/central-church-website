@@ -1,18 +1,40 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 // christian-chatbot/rag.py 의 RAG 로직을 TypeScript 로 포팅.
 // 임베딩(text-embedding-3-small) → Supabase match_sermons RPC → GPT-4o.
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// 클라이언트는 모듈 로드가 아니라 요청 시 지연 생성한다.
+// (모듈 로드 중 throw 하면 FUNCTION_INVOCATION_FAILED 로 원인 파악이 어려움)
+let _openai: OpenAI | null = null;
+let _supabase: SupabaseClient | null = null;
 
-const supabase = createClient(
-  process.env.SUPABASE_URL as string,
-  process.env.SUPABASE_SERVICE_ROLE_KEY as string,
-);
+const REQUIRED_ENV = ['OPENAI_API_KEY', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
 
-async function searchSimilarDocs(query: string, topK = 5): Promise<string[]> {
+function getClients(): { openai: OpenAI; supabase: SupabaseClient } {
+  const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
+  if (missing.length > 0) {
+    throw new Error(`MISSING_ENV:${missing.join(',')}`);
+  }
+  if (!_openai) {
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  if (!_supabase) {
+    _supabase = createClient(
+      process.env.SUPABASE_URL as string,
+      process.env.SUPABASE_SERVICE_ROLE_KEY as string,
+    );
+  }
+  return { openai: _openai, supabase: _supabase };
+}
+
+async function searchSimilarDocs(
+  openai: OpenAI,
+  supabase: SupabaseClient,
+  query: string,
+  topK = 5,
+): Promise<string[]> {
   const embedding = await openai.embeddings.create({
     model: 'text-embedding-3-small',
     input: query,
@@ -55,7 +77,7 @@ ${userQuestion}
 `;
 }
 
-async function getGptResponse(prompt: string): Promise<string> {
+async function getGptResponse(openai: OpenAI, prompt: string): Promise<string> {
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages: [
@@ -67,12 +89,13 @@ async function getGptResponse(prompt: string): Promise<string> {
 }
 
 export async function answerQuestion(question: string): Promise<string> {
-  const docs = await searchSimilarDocs(question);
+  const { openai, supabase } = getClients();
+  const docs = await searchSimilarDocs(openai, supabase, question);
   const prompt = generatePrompt(docs, question);
-  return getGptResponse(prompt);
+  return getGptResponse(openai, prompt);
 }
 
-// Vercel 서버리스 함수 (Node 런타임). GPT-4o 응답이 수 초 걸리므로 여유를 둔다.
+// GPT-4o 응답이 수 초 걸리므로 여유를 둔다.
 export const config = { maxDuration: 30 };
 
 export default async function handler(
@@ -94,7 +117,15 @@ export default async function handler(
     const answer = await answerQuestion(question.trim());
     res.status(200).json({ answer });
   } catch (err) {
-    console.error('[/api/ask] error:', err);
-    res.status(500).json({ error: '답변을 가져오지 못했습니다.' });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('[/api/ask] error:', message);
+    if (message.startsWith('MISSING_ENV:')) {
+      res.status(500).json({
+        error: '서버 환경변수가 설정되지 않았습니다.',
+        missingEnv: message.slice('MISSING_ENV:'.length).split(','),
+      });
+      return;
+    }
+    res.status(500).json({ error: '답변을 가져오지 못했습니다.', detail: message });
   }
 }
