@@ -30,7 +30,9 @@ import {
   Send
 } from 'lucide-react';
 
-const CHATBOT_API_URL = "https://central-church-chatbot.onrender.com";
+// 챗봇 백엔드는 같은 Vercel 프로젝트의 서버리스 함수(/api/ask)로 통합됨.
+// 동일 출처라 CORS 불필요. (구: 별도 Render 백엔드 — 콜드 스타트 때문에 제거)
+const CHATBOT_API_URL = "";
 
 // --- 전역 설정 (유튜브 API용) ---
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
@@ -363,7 +365,7 @@ const ChatWidget = () => {
     const abortTimer = setTimeout(() => controller.abort(), 90000);
 
     try {
-      const res = await fetch(`${CHATBOT_API_URL}/ask`, {
+      const res = await fetch(`${CHATBOT_API_URL}/api/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: q }),
@@ -462,7 +464,7 @@ const ChatWidget = () => {
                   <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
                   <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" />
                   {coldStartHint && (
-                    <span className="text-[10px] text-gray-500 ml-2 font-medium">서버 깨우는 중...</span>
+                    <span className="text-[10px] text-gray-500 ml-2 font-medium">답변을 정리하고 있어요...</span>
                   )}
                 </div>
               </div>
