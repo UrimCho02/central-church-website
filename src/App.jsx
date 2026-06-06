@@ -395,7 +395,12 @@ const ChatWidget = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    // 데스크탑(마우스): Enter=전송, Shift+Enter=줄바꿈
+    // 모바일(터치): Enter=줄바꿈, 전송은 버튼으로만 → 조기 전송 방지
+    const isTouch =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches;
+    if (e.key === 'Enter' && !e.shiftKey && !isTouch) {
       e.preventDefault();
       sendMessage();
     }
@@ -473,7 +478,7 @@ const ChatWidget = () => {
           </div>
 
           <div className="border-t border-gray-100 p-3 bg-white shrink-0">
-            <div className="flex gap-2 items-end">
+            <div className="flex gap-3 items-end">
               <textarea
                 ref={textareaRef}
                 value={input}
