@@ -114,8 +114,19 @@ export default async function handler(
       return;
     }
 
-    const answer = await answerQuestion(question.trim());
+    const q = question.trim();
+    const answer = await answerQuestion(q);
     res.status(200).json({ answer });
+
+    // 질문/답변 누적 (best-effort, 응답 후). christian-chatbot rag.py log_qa 와 동일 의도.
+    // 로깅 실패가 사용자 응답을 막지 않도록 예외는 삼킨다.
+    try {
+      const { supabase } = getClients();
+      const { error } = await supabase.from('chat_logs').insert({ question: q, answer });
+      if (error) console.error('[chat_logs] 기록 실패(무시):', error.message);
+    } catch (e) {
+      console.error('[chat_logs] 로깅 스킵:', e instanceof Error ? e.message : String(e));
+    }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('[/api/ask] error:', message);
