@@ -345,10 +345,39 @@ const ChatWidget = () => {
   const [coldStartHint, setColdStartHint] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
+  const panelRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  // 모바일 키보드 대응: 입력창 포커스 시 키보드가 화면을 가려도
+  // 패널이 시각 뷰포트(visualViewport)에 맞춰 줄어들도록 높이/위치를 보정.
+  // (fixed inset-0 은 레이아웃 뷰포트 기준이라 키보드만큼 안 줄어 입력창이 화면 밖으로 밀림)
+  useEffect(() => {
+    if (!isOpen) return;
+    const vv = window.visualViewport;
+    const el = panelRef.current;
+    if (!vv || !el) return;
+    const apply = () => {
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        el.style.height = `${vv.height}px`;
+        el.style.top = `${vv.offsetTop}px`;
+      } else {
+        el.style.height = '';
+        el.style.top = '';
+      }
+    };
+    apply();
+    vv.addEventListener('resize', apply);
+    vv.addEventListener('scroll', apply);
+    return () => {
+      vv.removeEventListener('resize', apply);
+      vv.removeEventListener('scroll', apply);
+      el.style.height = '';
+      el.style.top = '';
+    };
+  }, [isOpen]);
 
   const sendMessage = async () => {
     const q = input.trim();
@@ -425,7 +454,7 @@ const ChatWidget = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 md:inset-auto md:bottom-6 md:right-6 z-[9999] md:w-[400px] md:h-[640px] md:max-h-[85vh] bg-white md:rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 animate-in fade-in slide-in-from-bottom duration-300 font-noto">
+        <div ref={panelRef} className="fixed inset-x-0 top-0 h-[100dvh] md:inset-auto md:top-auto md:bottom-6 md:right-6 z-[9999] md:w-[400px] md:h-[640px] md:max-h-[85vh] bg-white md:rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 animate-in fade-in slide-in-from-bottom duration-300 font-noto">
           <div className="bg-slate-800 text-white px-6 py-5 flex items-center justify-between shrink-0">
             <div className="text-left">
               <h3 className="font-black text-base tracking-tight">센트럴처치 상담</h3>
