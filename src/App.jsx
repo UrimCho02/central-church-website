@@ -516,8 +516,8 @@ const ChatWidget = () => {
                 placeholder="고민이나 질문을 입력하세요..."
                 rows={1}
                 disabled={isLoading}
-                className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl text-sm leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-600 disabled:opacity-50 font-medium break-keep"
-                style={{ maxHeight: '128px' }}
+                className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-600 disabled:opacity-50 font-medium break-keep"
+                style={{ maxHeight: '128px', fontSize: '16px' }}
               />
               <button
                 onClick={sendMessage}
