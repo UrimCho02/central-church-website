@@ -445,7 +445,7 @@ const ChatWidget = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] w-16 h-16 md:w-[72px] md:h-[72px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-2xl shadow-indigo-300/40 flex items-center justify-center transition-all duration-300 font-noto ${
+        className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] w-16 h-16 md:w-[72px] md:h-[72px] bg-red-500 hover:bg-red-600 text-white rounded-full shadow-2xl shadow-red-200/50 flex items-center justify-center transition-all duration-300 font-noto ${
           isOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'
         }`}
         aria-label="상담 챗봇 열기"
@@ -458,7 +458,7 @@ const ChatWidget = () => {
           <div className="bg-slate-800 text-white px-6 py-5 flex items-center justify-between shrink-0">
             <div className="text-left">
               <h3 className="font-black text-base tracking-tight">센트럴처치 상담</h3>
-              <p className="text-[9px] uppercase tracking-[0.25em] text-indigo-300 font-bold mt-1 font-sans">
+              <p className="text-[9px] uppercase tracking-[0.25em] text-red-300 font-bold mt-1 font-sans">
                 Sermon-Based AI
               </p>
             </div>
@@ -471,7 +471,7 @@ const ChatWidget = () => {
             </button>
           </div>
 
-          <div className="bg-indigo-50/60 px-5 py-3 text-[11px] text-indigo-900/80 leading-relaxed break-keep border-b border-indigo-100 shrink-0 font-medium">
+          <div className="bg-red-50/60 px-5 py-3 text-[11px] text-red-900/80 leading-relaxed break-keep border-b border-red-100 shrink-0 font-medium">
             AI가 설교 말씀을 근거로 답변합니다. 더 깊은 상담은 담임 목사님과 직접 나누어 주세요.
           </div>
 
@@ -481,7 +481,7 @@ const ChatWidget = () => {
                 <div
                   className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed break-keep whitespace-pre-wrap font-medium ${
                     m.role === 'user'
-                      ? 'bg-indigo-600 text-white rounded-br-md'
+                      ? 'bg-red-500 text-white rounded-br-md'
                       : m.isError
                       ? 'bg-red-50 text-red-900 rounded-bl-md border border-red-100'
                       : 'bg-gray-100 text-gray-900 rounded-bl-md'
@@ -494,9 +494,9 @@ const ChatWidget = () => {
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-bl-md flex items-center gap-1.5">
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" />
+                  <span className="w-2 h-2 bg-red-300 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-2 h-2 bg-red-300 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-2 h-2 bg-red-300 rounded-full animate-bounce" />
                   {coldStartHint && (
                     <span className="text-[10px] text-gray-500 ml-2 font-medium">답변을 정리하고 있어요...</span>
                   )}
@@ -516,13 +516,13 @@ const ChatWidget = () => {
                 placeholder="고민이나 질문을 입력하세요..."
                 rows={1}
                 disabled={isLoading}
-                className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-600 disabled:opacity-50 font-medium break-keep"
+                className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-red-500 disabled:opacity-50 font-medium break-keep"
                 style={{ maxHeight: '128px', fontSize: '16px' }}
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
-                className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shrink-0"
+                className="bg-red-500 hover:bg-red-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shrink-0"
                 aria-label="전송"
               >
                 <Send size={18} strokeWidth={2.5} />
