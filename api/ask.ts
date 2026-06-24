@@ -95,22 +95,57 @@ ${userQuestion}
 `;
 }
 
-async function getGptResponse(openai: OpenAI, prompt: string): Promise<string> {
+// 멀티턴 컨텍스트 윈도우 — 직전 6 메시지(=3 round) 까지만 유지.
+// 너무 길어지면 토큰 비용·정확도 모두 손해라 의도적으로 짧게 둠.
+const HISTORY_WINDOW = 6;
+
+type ChatTurn = { role: 'user' | 'assistant'; content: string };
+
+async function getGptResponse(
+  openai: OpenAI,
+  prompt: string,
+  history: ChatTurn[],
+): Promise<string> {
+  // history 는 가장 오래된 것부터. 현재 턴의 prompt(=RAG 컨텍스트 포함)는 마지막 user 로 붙는다.
+  // 이전 턴의 답변에는 RAG 컨텍스트를 다시 붙이지 않는다 — 모델이 흐름만 인지하면 충분.
+  const trimmed = history.slice(-HISTORY_WINDOW);
+  const messages = [
+    { role: 'system' as const, content: '당신은 센트럴처치(Central Church)의 신앙 상담가입니다.' },
+    ...trimmed,
+    { role: 'user' as const, content: prompt },
+  ];
+
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
-    messages: [
-      { role: 'system', content: '당신은 센트럴처치(Central Church)의 신앙 상담가입니다.' },
-      { role: 'user', content: prompt },
-    ],
+    messages,
   });
   return response.choices[0].message.content ?? '';
 }
 
-export async function answerQuestion(question: string): Promise<string> {
+export async function answerQuestion(
+  question: string,
+  history: ChatTurn[] = [],
+): Promise<string> {
   const { openai, supabase } = getClients();
   const docs = await searchSimilarDocs(openai, supabase, question);
   const prompt = generatePrompt(docs, question);
-  return getGptResponse(openai, prompt);
+  return getGptResponse(openai, prompt, history);
+}
+
+// 위젯 요청 body 의 history 필드를 안전하게 정규화.
+// 잘못된 항목은 조용히 버리고, role 도 user|assistant 둘로만 제한.
+function normalizeHistory(raw: unknown): ChatTurn[] {
+  if (!Array.isArray(raw)) return [];
+  const out: ChatTurn[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== 'object') continue;
+    const r = (item as { role?: unknown }).role;
+    const c = (item as { content?: unknown }).content;
+    if ((r === 'user' || r === 'assistant') && typeof c === 'string' && c.trim()) {
+      out.push({ role: r, content: c });
+    }
+  }
+  return out;
 }
 
 // GPT-4o 응답이 수 초 걸리므로 여유를 둔다.
@@ -126,14 +161,18 @@ export default async function handler(
   }
 
   try {
-    const { question } = (req.body ?? {}) as { question?: unknown };
+    const { question, history: rawHistory } = (req.body ?? {}) as {
+      question?: unknown;
+      history?: unknown;
+    };
     if (typeof question !== 'string' || !question.trim()) {
       res.status(400).json({ error: 'question is required' });
       return;
     }
 
     const q = question.trim();
-    const answer = await answerQuestion(q);
+    const history = normalizeHistory(rawHistory);
+    const answer = await answerQuestion(q, history);
     res.status(200).json({ answer });
 
     // 질문/답변 누적 (best-effort, 응답 후). christian-chatbot rag.py log_qa 와 동일 의도.

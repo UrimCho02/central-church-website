@@ -393,11 +393,17 @@ const ChatWidget = () => {
     const controller = new AbortController();
     const abortTimer = setTimeout(() => controller.abort(), 90000);
 
+    // 멀티턴 컨텍스트: 환영 인사·에러 메시지를 제외한 직전 대화를
+    // {role, content} 형태로 백엔드에 전달. 윈도우 트리밍은 백엔드가 책임.
+    const history = messages
+      .filter((m) => !m.isError && !(m.role === 'assistant' && m.text.startsWith('안녕하세요')))
+      .map((m) => ({ role: m.role, content: m.text }));
+
     try {
       const res = await fetch(`${CHATBOT_API_URL}/api/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: q }),
+        body: JSON.stringify({ question: q, history }),
         signal: controller.signal
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
