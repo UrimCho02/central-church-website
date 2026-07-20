@@ -331,13 +331,13 @@ const Contact = () => {
   );
 };
 
-// --- 챗봇 상담 위젯 ---
+// --- 챗봇 QnA 위젯 ---
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      text: '안녕하세요. 설교 말씀을 바탕으로 신앙 상담을 도와드립니다. 마음에 있는 질문이나 고민을 편하게 적어주세요.'
+      text: '안녕하세요. AI가 성경과 설교를 근거로 신앙 질문에 답해드립니다. 궁금한 것을 편하게 물어보세요.'
     }
   ]);
   const [input, setInput] = useState('');
@@ -454,7 +454,7 @@ const ChatWidget = () => {
         className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[9998] w-16 h-16 md:w-[72px] md:h-[72px] bg-red-500 hover:bg-red-600 text-white rounded-full shadow-2xl shadow-red-200/50 flex items-center justify-center transition-all duration-300 font-noto ${
           isOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'
         }`}
-        aria-label="상담 챗봇 열기"
+        aria-label="QnA 챗봇 열기"
       >
         <MessageCircle size={28} strokeWidth={2} />
       </button>
@@ -463,7 +463,7 @@ const ChatWidget = () => {
         <div ref={panelRef} className="fixed inset-x-0 top-0 h-[100dvh] md:inset-auto md:top-auto md:bottom-6 md:right-6 z-[9999] md:w-[400px] md:h-[640px] md:max-h-[85vh] bg-white md:rounded-[2rem] shadow-2xl flex flex-col overflow-hidden border border-gray-100 animate-in fade-in slide-in-from-bottom duration-300 font-noto">
           <div className="bg-slate-800 text-white px-6 py-5 flex items-center justify-between shrink-0">
             <div className="text-left">
-              <h3 className="font-black text-base tracking-tight">센트럴처치 상담</h3>
+              <h3 className="font-black text-base tracking-tight">센트럴처치 QnA</h3>
               <p className="text-[9px] uppercase tracking-[0.25em] text-red-300 font-bold mt-1 font-sans">
                 Sermon-Based AI
               </p>
@@ -478,7 +478,7 @@ const ChatWidget = () => {
           </div>
 
           <div className="bg-red-50/60 px-5 py-3 text-[11px] text-red-900/80 leading-relaxed break-keep border-b border-red-100 shrink-0 font-medium">
-            AI가 설교 말씀을 근거로 답변합니다. 더 깊은 상담은 담임 목사님과 직접 나누어 주세요.
+            AI가 성경과 설교를 근거로 답변합니다.
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4 bg-white">
@@ -519,7 +519,7 @@ const ChatWidget = () => {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder="고민이나 질문을 입력하세요..."
+                placeholder="궁금한 것을 물어보세요"
                 rows={1}
                 disabled={isLoading}
                 className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-red-500 disabled:opacity-50 font-medium break-keep"
