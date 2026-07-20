@@ -337,7 +337,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      text: '안녕하세요. AI가 성경과 설교를 근거로 신앙 질문에 답해드립니다. 궁금한 것을 편하게 물어보세요.'
+      text: '안녕하세요. AI가 성경과 설교를 근거로 신앙 질문에 답해드립니다. 궁금한 게 있으시면 편하게 물어봐 주세요.'
     }
   ]);
   const [input, setInput] = useState('');
@@ -519,7 +519,7 @@ const ChatWidget = () => {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder="궁금한 것을 물어보세요"
+                placeholder="궁금한 점을 입력해 주세요"
                 rows={1}
                 disabled={isLoading}
                 className="flex-1 resize-none px-4 py-3 bg-gray-50 rounded-2xl leading-relaxed focus:outline-none focus:bg-white focus:ring-2 focus:ring-red-500 disabled:opacity-50 font-medium break-keep"
