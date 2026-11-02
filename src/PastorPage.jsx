@@ -30,17 +30,32 @@ export default function PastorPage() {
   const [loaded, setLoaded] = useState(false);
   const [reload, setReload] = useState(0);
   const generation = useRef(0);
+  const setupPending = useRef(false);
 
   useEffect(() => {
     document.title = '목회자 질문·답변 조회 | 센트럴처치';
-    const token = new URLSearchParams(window.location.hash.slice(1)).get('setup');
-    if (token) {
+    let cancelled = false;
+    const acceptSetupLink = () => {
+      const token = new URLSearchParams(window.location.hash.slice(1)).get('setup');
+      if (!token) return false;
+      cancelled = true;
+      setupPending.current = true;
       setSetupToken(token);
+      setUser(null);
+      generation.current += 1;
+      setResult({ logs: [], total: 0, pageSize: 20 });
+      setLoaded(false);
       window.history.replaceState(null, '', window.location.pathname + window.location.search);
       setChecking(false);
-      return;
+      return true;
+    };
+    window.addEventListener('hashchange', acceptSetupLink);
+    if (!acceptSetupLink() && !setupPending.current) {
+      api('session').then((data) => { if (!cancelled) setUser(data); })
+        .catch((e) => { if (!cancelled && e.status !== 401) setError(e.message); })
+        .finally(() => { if (!cancelled) setChecking(false); });
     }
-    api('session').then(setUser).catch((e) => { if (e.status !== 401) setError(e.message); }).finally(() => setChecking(false));
+    return () => { cancelled = true; window.removeEventListener('hashchange', acceptSetupLink); };
   }, []);
 
   const expire = useCallback(() => {
@@ -93,6 +108,7 @@ export default function PastorPage() {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(setupToken ? { token: setupToken, password } : { email, password }),
       });
+      setupPending.current = false;
       setPassword(''); setConfirmation(''); setSetupToken(''); setUser(data);
     } catch (e) { setError(e.message); }
     finally { setBusy(false); }
