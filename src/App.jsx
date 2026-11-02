@@ -479,6 +479,7 @@ const ChatWidget = () => {
 
           <div className="bg-red-50/60 px-5 py-3 text-[11px] text-red-900/80 leading-relaxed break-keep border-b border-red-100 shrink-0 font-medium">
             AI가 성경과 설교를 근거로 답변합니다.
+            <span className="mt-1 block">질문과 답변은 목회자 검토를 위해 저장됩니다.</span>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4 bg-white">
@@ -654,6 +655,7 @@ const App = () => {
           </div>
         </div>
         <div className="max-w-7xl mx-auto pt-16 border-t border-gray-50 text-[10px] font-black uppercase tracking-[0.5em] text-gray-300 font-sans"><p>© 2026 CENTRAL CHURCH. ALL RIGHTS RESERVED.</p></div>
+        <a href="/?pastor" className="mt-6 inline-block text-xs font-medium tracking-normal text-gray-500 hover:text-red-600">목회자 로그인</a>
       </footer>
 
       <style>{`

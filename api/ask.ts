@@ -167,9 +167,8 @@ export default async function handler(
     const q = question.trim();
     const history = normalizeHistory(rawHistory);
     const answer = await answerQuestion(q, history);
-    res.status(200).json({ answer });
-
-    // 질문/답변 누적 (best-effort, 응답 후). christian-chatbot rag.py log_qa 와 동일 의도.
+    // Vercel may stop work after sending the response: persist before responding.
+    // 질문/답변 누적 (best-effort). christian-chatbot rag.py log_qa 와 동일 의도.
     // 로깅 실패가 사용자 응답을 막지 않도록 예외는 삼킨다.
     try {
       const { supabase } = getClients();
@@ -178,6 +177,7 @@ export default async function handler(
     } catch (e) {
       console.error('[chat_logs] 로깅 스킵:', e instanceof Error ? e.message : String(e));
     }
+    res.status(200).json({ answer });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('[/api/ask] error:', message);
