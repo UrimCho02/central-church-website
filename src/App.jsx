@@ -337,7 +337,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      text: '안녕하세요. AI가 성경과 설교를 근거로 신앙 질문에 답해드립니다. 궁금한 게 있으시면 편하게 물어봐 주세요.'
+      text: '안녕하세요. AI가 성경과 설교를 근거로 신앙 질문에 답해드립니다. 뜻이 궁금한 성경 말씀도 편하게 물어봐 주세요.'
     }
   ]);
   const [input, setInput] = useState('');
@@ -479,7 +479,7 @@ const ChatWidget = () => {
 
           <div className="bg-red-50/60 px-5 py-3 text-[11px] text-red-900/80 leading-relaxed break-keep border-b border-red-100 shrink-0 font-medium">
             AI가 성경과 설교를 근거로 답변합니다.
-            <span className="mt-1 block">질문과 답변은 목회자 검토를 위해 저장됩니다.</span>
+            <span className="mt-1 block">질문과 답변은 목회자의 검토를 위해 저장됩니다.</span>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4 bg-white">
