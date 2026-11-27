@@ -1,4 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { ApiRequest, ApiResponse } from '../lib/http.js';
+import { isSameOrigin, parseChatInput, type ChatTurn } from '../lib/chat-input.js';
 import OpenAI from 'openai';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
@@ -93,8 +94,6 @@ ${userQuestion}
 // 너무 길어지면 토큰 비용·정확도 모두 손해라 의도적으로 짧게 둠.
 const HISTORY_WINDOW = 6;
 
-type ChatTurn = { role: 'user' | 'assistant'; content: string };
-
 async function getGptResponse(
   openai: OpenAI,
   prompt: string,
@@ -112,6 +111,7 @@ async function getGptResponse(
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages,
+    max_completion_tokens: 1200,
   });
   return response.choices[0].message.content ?? '';
 }
@@ -126,46 +126,32 @@ export async function answerQuestion(
   return getGptResponse(openai, prompt, history);
 }
 
-// 위젯 요청 body 의 history 필드를 안전하게 정규화.
-// 잘못된 항목은 조용히 버리고, role 도 user|assistant 둘로만 제한.
-function normalizeHistory(raw: unknown): ChatTurn[] {
-  if (!Array.isArray(raw)) return [];
-  const out: ChatTurn[] = [];
-  for (const item of raw) {
-    if (!item || typeof item !== 'object') continue;
-    const r = (item as { role?: unknown }).role;
-    const c = (item as { content?: unknown }).content;
-    if ((r === 'user' || r === 'assistant') && typeof c === 'string' && c.trim()) {
-      out.push({ role: r, content: c });
-    }
-  }
-  return out;
-}
-
 // GPT-4o 응답이 수 초 걸리므로 여유를 둔다.
 export const config = { maxDuration: 30 };
 
 export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse,
+  req: ApiRequest,
+  res: ApiResponse,
 ) {
+  res.setHeader('Cache-Control', 'private, no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
 
-  try {
-    const { question, history: rawHistory } = (req.body ?? {}) as {
-      question?: unknown;
-      history?: unknown;
-    };
-    if (typeof question !== 'string' || !question.trim()) {
-      res.status(400).json({ error: 'question is required' });
-      return;
-    }
+  if (!isSameOrigin(req.headers)) {
+    res.status(403).json({ error: '이 홈페이지에서 질문을 보내 주세요.' });
+    return;
+  }
+  if (req.headers['content-type']?.split(';')[0].trim().toLowerCase() !== 'application/json') {
+    res.status(415).json({ error: 'JSON 형식으로 요청해 주세요.' });
+    return;
+  }
 
-    const q = question.trim();
-    const history = normalizeHistory(rawHistory);
+  try {
+    const { question: q, history } = parseChatInput(req.body);
     const answer = await answerQuestion(q, history);
     // Vercel may stop work after sending the response: persist before responding.
     // 질문/답변 누적 (best-effort). christian-chatbot rag.py log_qa 와 동일 의도.
@@ -180,14 +166,16 @@ export default async function handler(
     res.status(200).json({ answer });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error('[/api/ask] error:', message);
-    if (message.startsWith('MISSING_ENV:')) {
-      res.status(500).json({
-        error: '서버 환경변수가 설정되지 않았습니다.',
-        missingEnv: message.slice('MISSING_ENV:'.length).split(','),
-      });
+    if (message === 'TOO_LARGE') {
+      res.status(413).json({ error: '질문은 2,000자 이내로 입력해 주세요. 대화가 길면 새로 시작해 주세요.' });
       return;
     }
-    res.status(500).json({ error: '답변을 가져오지 못했습니다.', detail: message });
+    if (message === 'BAD_INPUT' || message === 'BAD_HISTORY') {
+      res.status(400).json({ error: '질문과 대화 내용을 확인해 주세요.' });
+      return;
+    }
+    // Do not log upstream exception text: it can contain user input or credentials.
+    console.error('[/api/ask] request failed');
+    res.status(503).json({ error: '답변을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.' });
   }
 }

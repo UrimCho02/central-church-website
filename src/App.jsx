@@ -394,10 +394,11 @@ const ChatWidget = () => {
     const abortTimer = setTimeout(() => controller.abort(), 90000);
 
     // 멀티턴 컨텍스트: 환영 인사·에러 메시지를 제외한 직전 대화를
-    // {role, content} 형태로 백엔드에 전달. 윈도우 트리밍은 백엔드가 책임.
+    // 서버와 같은 한도를 적용해 오래된 대화가 요청을 무한히 키우지 않도록 한다.
     const history = messages
       .filter((m) => !m.isError && !(m.role === 'assistant' && m.text.startsWith('안녕하세요')))
-      .map((m) => ({ role: m.role, content: m.text }));
+      .slice(-6)
+      .map((m) => ({ role: m.role, content: m.text.slice(0, 4000) }));
 
     try {
       const res = await fetch(`${CHATBOT_API_URL}/api/ask`, {
@@ -406,8 +407,8 @@ const ChatWidget = () => {
         body: JSON.stringify({ question: q, history }),
         signal: controller.signal
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      if (!res.ok) throw Object.assign(new Error(data.error || '요청을 완료하지 못했습니다.'), { status: res.status });
       setMessages((m) => [...m, { role: 'assistant', text: data.answer }]);
     } catch (err) {
       const isTimeout = err.name === 'AbortError';
@@ -417,7 +418,10 @@ const ChatWidget = () => {
           role: 'assistant',
           text: isTimeout
             ? '서버 응답이 너무 오래 걸렸습니다. 잠시 후 다시 시도해 주세요.'
-            : '죄송합니다. 답변을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.',
+            : err.status === 429
+              ? '질문이 잠시 몰리고 있어요. 1분 후 다시 시도해 주세요.'
+              : (err.status === 400 || err.status === 413) ? err.message
+                : '죄송합니다. 답변을 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.',
           isError: true
         }
       ]);
@@ -516,6 +520,7 @@ const ChatWidget = () => {
           <div className="border-t border-gray-100 p-3 bg-white shrink-0">
             <div className="flex gap-3 items-end">
               <textarea
+                maxLength={2000}
                 ref={textareaRef}
                 value={input}
                 onChange={handleInput}

@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { ApiRequest as VercelRequest, ApiResponse as VercelResponse } from '../lib/http.js';
 import { createClient, type User } from '@supabase/supabase-js';
 
 const ACCESS = 'cc_pastor_access';
@@ -37,6 +37,10 @@ function approved(user: User | null): user is User {
 
 async function authenticate(req: VercelRequest, res: VercelResponse) {
   const stored = cookies(req);
+  if (!stored[ACCESS] && !stored[REFRESH]) {
+    res.status(401).json({ error: '로그인이 필요합니다.' });
+    return null;
+  }
   const auth = client();
   if (stored[ACCESS]) {
     const { data, error } = await auth.auth.getUser(stored[ACCESS]);
@@ -94,7 +98,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (action === 'logout') {
         const stored = cookies(req);
         const auth = client();
-        let access = stored[ACCESS];
+        let access: string | undefined = stored[ACCESS];
         if (!access && stored[REFRESH]) {
           const { data } = await auth.auth.refreshSession({ refresh_token: stored[REFRESH] });
           access = data.session?.access_token;
